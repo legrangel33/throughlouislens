@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Language Landscape. Throughlouislens</title>
-  <link rel="icon" type="image/svg+xml" sizes="32x32" href="assets/favicon_32_espresso.svg">
-  <link rel="icon" type="image/svg+xml" sizes="64x64" href="assets/favicon_64_espresso.svg">
-  <link rel="icon" type="image/svg+xml" sizes="128x128" href="assets/favicon_128_espresso.svg">
+  <title>AI Language Landscape - throughlouislens</title>
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="assets/logo/favicon_32_espresso.svg">
+  <link rel="icon" type="image/svg+xml" sizes="64x64" href="assets/logo/favicon_64_espresso.svg">
+  <link rel="icon" type="image/svg+xml" sizes="128x128" href="assets/logo/favicon_128_espresso.svg">
   <link rel="stylesheet" href="guide_article.css">
 
   <!-- Google Analytics 4 -->
@@ -522,15 +522,15 @@
         <div>&nbsp;&nbsp;&nbsp;&nbsp;└── asset-name.md</div>
       </div>
       <div class="ui-tree-note">
-        <strong>No assets?</strong> Omit the <code>assets/</code> folder entirely &mdash; just <code>SKILL.md</code> at the root.
+        <strong>No assets?</strong> Omit the <code>assets/</code> folder entirely: just <code>SKILL.md</code> at the root.
       </div>
     </div>
     <div class="ui-rules-body">
       <div class="ui-tree-panel-label" style="margin-bottom: 0.65rem;">Key Rules</div>
       <div class="ui-rule-item"><div class="ui-rule-dot"></div><div class="ui-rule-text"><strong>name</strong> must be unique and kebab-case.</div></div>
-      <div class="ui-rule-item"><div class="ui-rule-dot"></div><div class="ui-rule-text"><strong>description</strong> is what Claude reads to decide when to trigger &mdash; be specific.</div></div>
+      <div class="ui-rule-item"><div class="ui-rule-dot"></div><div class="ui-rule-text"><strong>description</strong> is what Claude reads to decide when to trigger: be specific.</div></div>
       <div class="ui-rule-item"><div class="ui-rule-dot"></div><div class="ui-rule-text">Use <code>-----</code> to divide major sections.</div></div>
-      <div class="ui-rule-item"><div class="ui-rule-dot"></div><div class="ui-rule-text">Assets are optional &mdash; reference them from the SKILL.md body.</div></div>
+      <div class="ui-rule-item"><div class="ui-rule-dot"></div><div class="ui-rule-text">Assets are optional: reference them from the SKILL.md body.</div></div>
     </div>
   </div>
   <div class="ui-mock-caption">Minimum: one folder, one SKILL.md.</div>
@@ -615,13 +615,13 @@
       </div>
     </div>
   </div>
-  <div class="ui-mock-caption">Live integrations &mdash; Claude reads and writes to your tools.</div>
+  <div class="ui-mock-caption">Live integrations: Claude reads and writes to your tools.</div>
 </div>
 <h3 id="mcp-model-context-protocol">MCP (Model Context Protocol)</h3>
 <p>The technical standard that makes connectors work. MCP stands for <strong>Model Context Protocol</strong>, an open protocol that defines how AI assistants like Claude connect to external tools and services.</p>
 <p>MCP is an open protocol (a shared communication format) that defines how AI assistants like Claude connect to external tools and services. This universal standard lets Claude plug into any tool that supports it. Developers build MCP-compatible connectors for their apps, Claude uses those connectors to talk to the apps.</p>
 <ul>
-<li><strong>Model</strong>: LLM <span style="color: var(--blue); font-weight: 500;">Claude Opus 4.7 by Anthropic</span>, GPT-5.5 OpenAI, Gemini 3.1 Pro Google.</li>
+<li><strong>Model</strong>: LLM <span style="color: var(--blue); font-weight: 500;">Claude by Anthropic</span>, GPT by OpenAI, Gemini by Google.</li>
 <li><strong>Context</strong>: the data and capabilities the model gets access to.</li>
 <li><strong>Protocol</strong>: the agreed-upon standard for how communication happens.</li>
 </ul>
@@ -699,7 +699,7 @@
           </div>
           <div class="ui-dp-outputs"><div class="ui-dp-outputs-text">Files Claude shares will appear here.</div></div>
         </div>
-        <div class="ui-dp-tagline"><div class="ui-dp-tagline-text">Dispatch to Claude and check in from anywhere &mdash; one continuous thread.</div></div>
+        <div class="ui-dp-tagline"><div class="ui-dp-tagline-text">Dispatch to Claude and check in from anywhere, one continuous thread.</div></div>
       </div>
 
       <div class="ui-dp-chat">
@@ -759,7 +759,7 @@
 <p>Claude Code (see above) is a CLI tool, you use it from the terminal. Most non-developers never touch a CLI, but developers live in one. If someone tells you to "run a command in your terminal" or "use the CLI," they mean: open your terminal app and type something.</p>
 <hr>
 <h2 id="quick-reference-at-a-glance">Quick Reference</h2>
-<table class="md-table"><thead><tr><th>Term</th><th>One-line definition</th></tr></thead><tbody><tr><td>LLM</td><td>Large Language Model, the AI model itself (e.g. Claude, GPT, Gemini)</td></tr><tr><td>Token</td><td>The unit Claude uses to process text, roughly 3/4 of a word</td></tr><tr><td>Context window</td><td>How much text Claude can hold in mind at once in a session</td></tr><tr><td>Markdown (.md)</td><td>A plain text format with simple formatting symbols</td></tr><tr><td>Claude Chat</td><td>Standard AI chat at claude.ai</td></tr><tr><td>Claude Cowork</td><td>Desktop app that adds projects, skills, connectors, and file access to Claude</td></tr><tr><td>Claude Code</td><td>Claude for developers, coding assistant that works in the terminal</td></tr><tr><td>Project</td><td>A connected folder and context in Cowork that persists across sessions</td></tr><tr><td>CLAUDE.md</td><td>The memory file of a project, loaded automatically each session</td></tr><tr><td>Handoff</td><td>A reference at the end of a session capturing where you left off</td></tr><tr><td>Skill</td><td>A SKILL.md instruction set that tells Claude how to handle a specific task</td></tr><tr><td>/ command</td><td>Typing /skill-name in chat to manually invoke a skill</td></tr><tr><td>Connector</td><td>An installed integration giving Claude direct access to an external tool</td></tr><tr><td>MCP</td><td>Model Context Protocol, the standard that makes connectors work</td></tr><tr><td>Artifact</td><td>A persistent, live piece of output Claude builds (dashboards, HTML widgets)</td></tr><tr><td>Asset</td><td>A supporting file attached to a project or skill</td></tr><tr><td>Dispatch</td><td>Cowork mobile handoff feature, assign tasks from your phone, Claude works on your desktop</td></tr><tr><td>API</td><td>The interface that lets two pieces of software communicate</td></tr><tr><td>SDK</td><td>A toolkit developers use to build on top of a platform</td></tr><tr><td>CLI</td><td>A text-based interface for controlling a computer via commands</td></tr></tbody></table>
+<table class="md-table"><thead><tr><th>Term</th><th>One-line definition</th></tr></thead><tbody><tr><td>LLM</td><td>Large Language Model, the AI model itself (e.g. Claude, GPT, Gemini)</td></tr><tr><td>Token</td><td>The unit Claude uses to process text, roughly 3/4 of a word</td></tr><tr><td>Context window</td><td>How much text Claude can hold in mind at once in a session</td></tr><tr><td>Markdown (.md)</td><td>A plain text format with simple formatting symbols</td></tr><tr><td>Claude Chat</td><td>Standard AI chat at claude.ai</td></tr><tr><td>Claude Cowork</td><td>Desktop app that adds projects, skills, connectors, and file access to Claude</td></tr><tr><td>Claude Code</td><td>Claude for developers, coding assistant that works in the terminal</td></tr><tr><td>Project</td><td>A connected folder and context in Cowork that persists across sessions</td></tr><tr><td>CLAUDE.md</td><td>The memory file of a project, loaded automatically each session</td></tr><tr><td>Handoff</td><td>A reference at the end of a session capturing where you left off</td></tr><tr><td>Skill</td><td>A SKILL.md instruction set that tells Claude how to handle a specific task</td></tr><tr><td>/ command</td><td>Typing /skill-name in chat to manually invoke a skill</td></tr><tr><td>Connector</td><td>An installed integration giving Claude direct access to an external tool</td></tr><tr><td>MCP</td><td>Model Context Protocol, the standard that makes connectors work</td></tr><tr><td>Artifact</td><td>A persistent, live piece of output Claude builds (dashboards, HTML widgets)</td></tr><tr><td>Asset</td><td>A supporting file attached to a project or skill</td></tr><tr><td>Dispatch</td><td>Cowork mobile handoff feature, assign tasks from your phone, Claude works on your desktop</td></tr><tr><td>Plugin</td><td>A bundled, installable package that combines multiple Connectors and Skills into one unit</td></tr><tr><td>Extension</td><td>A browser add-on (e.g. Claude in Chrome) that lets Claude interact with web pages and apps directly in your browser</td></tr><tr><td>API</td><td>The interface that lets two pieces of software communicate</td></tr><tr><td>SDK</td><td>A toolkit developers use to build on top of a platform</td></tr><tr><td>CLI</td><td>A text-based interface for controlling a computer via commands</td></tr></tbody></table>
 <hr>
 <p><em>AI Index, May 2026</em> <em>Part of the throughlouislens Claude Cowork guide series</em></p>
     <section class="requirements requirements-bottom">
