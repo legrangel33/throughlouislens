@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Big Three AI Ecosystems. Throughlouislens</title>
+  <link rel="stylesheet" href="guide_article.css">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WM5BFDS41D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WM5BFDS41D');
+  </script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">throughlouislens</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="guides/" class="active">Guides</a></li>
+        <li><a href="templates/">Templates</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="article-header-inner">
+      <a href="guides/" class="article-back-link">← All Guides</a>
+      <span class="article-eyebrow">AI · Comparison</span>
+      <h1 class="article-title">The Big Three Ecosystems</h1>
+      <p class="article-meta"><strong>12 min read</strong> <span>·</span> Published May 2026 <span>·</span> throughlouislens</p>
+    </div>
+  </header>
+
+  <main class="article-body">
+    <div class="article-body-inner">
+
+<p>Back when the internet was new, you didn't just "use the internet." You used a browser. And depending on which one you picked, you got a different experience of the same underlying thing. Chrome was fast and Google-integrated. Firefox was open and privacy-focused. Safari was Apple-native. Internet Explorer was the one you opened once to download the others.</p>
+
+<p>We're in that same moment now, but for AI.</p>
+
+<p>Claude, ChatGPT, and Gemini are not just different LLM's. They are three competing operating systems for how AI plugs into your work and your computer. Each one has a desktop app, a terminal tool, a way to automate your browser, a research mode, a document editor, a file integration layer, and a developer platform. The terminology is completely different across all three, which makes comparing them feel impossible.</p>
+
+<p>This guide is the Rosetta Stone. It maps every product category across all three providers so you know exactly what you're looking for, what it's called, and how to find it.</p>
+
+<hr>
+
+<h2 id="the-models">The Models: The <em>Engines</em> Under the Hood</h2>
+<p>Before the apps and products, there are the models. These are the actual AI systems doing the thinking. Everything else is interface.</p>
+
+<table>
+  <thead>
+    <tr><th>Provider</th><th>Current Top Model</th><th>Fast/Cheap Model</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Anthropic</strong></td><td>Claude Opus 4.7</td><td>Claude Haiku 4.5</td><td>Sonnet 4.6 sits in the middle, the one you use most. Opus 4.7 launched April 16, 2026</td></tr>
+    <tr><td><strong>OpenAI</strong></td><td>GPT-5.5 Pro / GPT-5.5 Thinking</td><td>GPT-5.5 Instant (default) / GPT-5.4 mini</td><td>GPT-5.5 Pro is reserved for paid tiers, GPT-5.5 Instant became ChatGPT's default model on May 5, 2026</td></tr>
+    <tr><td><strong>Google</strong></td><td>Gemini 3.1 Pro</td><td>Gemini 3.5 Flash</td><td>3.5 Flash launched at I/O 2026 (May 19), 4× faster than other frontier models and beats 3.1 Pro on coding benchmarks, Gemini 3.5 Pro arrives next month</td></tr>
+  </tbody>
+</table>
+
+<p>Google also launched <a href="https://deepmind.google/models/gemini-omni/" target="_blank" rel="noopener" class="doc-link">Gemini Omni ↗</a> at I/O 2026, a model that can take image, audio, video, and text as input and output video. OpenAI's equivalent was Sora, but Sora was discontinued in April 2026. Anthropic doesn't have a video-generation model.</p>
+
+<hr>
+
+<h2 id="the-chat-interface">The Chat Interface: The Main <em>Product</em></h2>
+<p>The face of each AI. The thing your parents have heard of.</p>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Claude.ai</strong></td><td><strong>ChatGPT</strong></td><td><strong>Gemini (chat)</strong></td></tr>
+    <tr><td>claude.ai</td><td>chatgpt.com</td><td>gemini.google.com</td></tr>
+  </tbody>
+</table>
+
+<p>All three work the same way in their simplest form: you type, it responds. The differences show up the moment you go one layer deeper. Claude's chat is known for longer context windows and more careful reasoning. ChatGPT reportedly has the widest user base (over 900 million users as of May 2026 with $25B ARR). Gemini is the most deeply integrated into Google's broader tech stack: Gmail, Docs, Drive.</p>
+
+<hr>
+
+<h2 id="the-desktop-agent">The Desktop Agent: AI That <em>Runs</em> While You Work</h2>
+<p>This is where the product war is actually being fought in 2026. Each provider has a version of "AI that lives on your desktop, manages files, runs scheduled tasks, and ships work back to you."</p>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Claude Cowork</strong></td><td><strong>ChatGPT (Agent Mode)</strong></td><td><strong>Gemini Spark</strong> (just launched)</td></tr>
+    <tr><td>Available on Claude desktop app</td><td>Built into ChatGPT desktop for Plus/Pro</td><td>Beta rolling out to Ultra subscribers now</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Claude Cowork</strong> is a standalone desktop app with a dedicated workspace folder on your machine. Claude reads your files directly, runs scheduled tasks in the background, and delivers finished outputs (documents, spreadsheets, presentations) to a folder you own. It has connectors to dozens of external tools (Slack, Notion, GitHub, etc.), and supports Skills (reusable instruction sets) and Plugins (community-built tool bundles).</p>
+
+<p><strong>ChatGPT Agent Mode</strong> evolved from what was called "Operator" in early 2025. It's now built directly into ChatGPT for Plus and Pro subscribers. It can navigate websites, run code, build spreadsheets and slideshows, and fill forms, all from the same interface you use for regular chat.</p>
+
+<p><strong>Gemini Spark</strong> was just announced at Google I/O on May 20, 2026. It's Google's answer to both: a 24/7 agentic assistant with out-of-the-box integrations to Gmail, Docs, and the entire Workspace suite. It runs on Google Cloud virtual machines (so it works even when your laptop is closed), and can interact with Chrome and the web. Early partner integrations include Canva, OpenTable, and Instacart. MCP support means more tools are coming. Still in beta for Ultra subscribers in the US.</p>
+
+<p><strong>The key difference:</strong> Cowork gives you a local file workspace and is the most mature product. Spark has the deepest first-party app integration (because Google owns Gmail, Docs, and Chrome). ChatGPT Agent Mode is the most seamlessly embedded into an existing conversation product.</p>
+
+<hr>
+
+<h2 id="the-terminal-cli">The Terminal / CLI: AI in Your <em>Command</em> Line</h2>
+<p>All three providers have a coding agent you install via your terminal and run from the command line.</p>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Claude Code</strong></td><td><strong>Codex CLI</strong></td><td><strong>Gemini CLI</strong> (transitioning to Antigravity CLI)</td></tr>
+    <tr>
+      <td><a href="https://claude.com/product/claude-code" target="_blank" rel="noopener"><code>npm install -g @anthropic-ai/claude-code</code></a></td>
+      <td><a href="https://developers.openai.com/codex/cli" target="_blank" rel="noopener"><code>npm install -g @openai/codex</code></a></td>
+      <td><a href="https://antigravity.google/docs/cli-overview" target="_blank" rel="noopener"><code>npx @google/gemini-cli</code></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>Not a technical person?</strong> Installing a CLI means running commands directly on your device. Proceed carefully. The commands above are a starting point, not a complete guide. Each provider has full installation documentation linked above. This guide is for informational purposes only.</p>
+</blockquote>
+
+<p><strong>Claude Code</strong> is Anthropic's CLI agent. It reads and edits your codebase, runs commands, and operates within your terminal with your files and git history directly accessible. Built for developers who want AI deeply embedded in their workflow, not as a web interface, but as a collaborator running in the same directory as your code.</p>
+
+<p><strong>Codex CLI</strong> is OpenAI's equivalent. As of April 2026, it reportedly has over 75,000 GitHub stars and 14.5 million monthly npm downloads. Recent updates added Goals (persistent task tracking), browser verification, automatic approval reviews, and plugins. It's the most widely adopted of the three.</p>
+
+<p><strong>Gemini CLI</strong> is Google's open-source CLI agent. It was the most generous on pricing: free with a personal Google account, with 60 model requests per minute and 1,000 per day. However, Google just announced at I/O 2026 that Gemini CLI is transitioning to <strong>Antigravity CLI</strong> as part of a broader agent-first developer platform. Free access ends June 18, 2026, paid tiers (Gemini Code Assist Standard/Enterprise) retain access. If you're a free user today, you have until June 18.</p>
+
+<hr>
+
+<h2 id="computer-use">Computer Use / Desktop Automation: AI That <em>Navigates</em></h2>
+<p>All three have a mode where the AI can take control of your screen: clicking buttons, filling forms, navigating interfaces that don't have APIs.</p>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Dispatch</strong></td><td><strong>Codex Computer Use</strong></td><td><strong>Gemini Spark (browser control)</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Claude Dispatch</strong> is what Anthropic calls its computer-use mode. Claude sees your screen, moves your cursor, and operates any application as if it were a person sitting at your desk. Designed for repetitive tasks in apps that have no API: form-filling, navigating legacy software, and so on. Slow by design, you pay attention to it.</p>
+
+<p><strong>Codex Computer Use</strong> (released as "Codex for almost everything") lets Codex operate macOS applications autonomously using its own cursor. Multiple Codex agents can run in parallel in the background without disrupting your foreground work. This is currently one of the most capable implementations.</p>
+
+<p><strong>Gemini Spark</strong> will include browser control through Chrome, with the ability to send texts and emails and operate your browser directly. This feature is coming in the weeks after launch, not fully available at time of writing.</p>
+
+<hr>
+
+<h2 id="projects">Projects: <em>Persistent</em> Workspaces</h2>
+<p>A "project" is a saved context: a place where you store files, instructions, and conversation history related to a specific ongoing effort.</p>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Claude Projects</strong></td><td><strong>ChatGPT Projects</strong></td><td><strong>Notebooks in Gemini / NotebookLM</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Claude Projects</strong> let you give Claude persistent memory, reference files, and custom instructions per project. The AI retains context across sessions within that project.</p>
+
+<p><strong>ChatGPT Projects</strong> work the same way: group related chats, upload reference files, add custom instructions. The AI stays on-topic to the project's context window.</p>
+
+<p><strong>Google's answer</strong> is two-pronged: <strong>Notebooks in Gemini</strong> is a project management tool synced with <strong>NotebookLM</strong>. NotebookLM is Google's source-grounded research assistant: you give it documents, it reasons only from those. Gemini Deep Research is now integrated directly inside <a href="https://notebooklm.google/" target="_blank" rel="noopener" class="doc-link">NotebookLM ↗</a>.</p>
+
+<hr>
+
+<h2 id="document-creation">Document Creation: AI That <em>Generates</em></h2>
+<p>Beyond generating text in a chat window: AI that produces actual editable documents, spreadsheets, presentations, and interactive dashboards.</p>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Claude Skills (Word, Excel, PPT, PDF) + Live Artifacts</strong></td><td><strong>ChatGPT Canvas</strong></td><td><strong>Docs Live + Google Workspace AI</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Claude's approach</strong> separates two things. <strong>Skills</strong> (Word, Excel, PowerPoint, PDF) handle formatted document creation: real .docx, .xlsx, .pptx files delivered to your folder. <strong>Live Artifacts</strong> (launched April 21, 2026) are interactive HTML pages that re-execute and pull fresh data every time you open them. Think of a dashboard that's connected to your live tools, not a static export.</p>
+
+<p><strong>ChatGPT Canvas</strong> is OpenAI's collaborative document editor inside ChatGPT. You write alongside the AI in a shared editor pane. As of 2026, Canvas can also build interactive apps and call APIs, making it more powerful than a simple document editor.</p>
+
+<p><strong>Google Docs Live</strong> was announced at I/O 2026: a conversational interface for creating and editing documents directly in Docs, with Gemini integrated. Rolling out to Android and iOS for AI Pro and Ultra subscribers.</p>
+
+<hr>
+
+<h2 id="image-generation">Image Generation: AI That <em>Designs</em></h2>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Claude Design</strong></td><td><strong>GPT-Image-2</strong> (formerly DALL-E)</td><td><strong>Nano Banana</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Claude</strong> takes a different approach. Instead of a raster image-generation model, Anthropic ships <strong>Claude Design</strong>, a dedicated product for producing interfaces, slides, diagrams, and interactive visualizations directly through Artifacts. Launched as a research preview on April 17, 2026 and powered by Claude Opus 4.7. Its image analysis is still considered best-in-class. For raster image output, Claude can route through external tools via MCP, but the native focus is on design and structured visuals rather than photorealistic rendering.</p>
+
+<p><strong>OpenAI</strong> retired DALL-E 3 in March 2026 (fully removed from the API on May 12, 2026). The current model is <strong>GPT-Image-2</strong> (launched April 21, 2026), now the default inside ChatGPT. It introduced reasoning before generation, 4K resolution, and multilingual text rendering. Pricing is token-based.</p>
+
+<p><strong>Google</strong> has the most developed image generation lineup. <strong>Nano Banana</strong> is Google's family of image generation and editing models, built on the Gemini image stack:</p>
+
+<ul>
+  <li><strong>Nano Banana</strong> (original), launched August 2025</li>
+  <li><strong>Nano Banana Pro</strong>, built on Gemini 3 Pro, integrates with Google Search knowledge for real-world accuracy</li>
+  <li><strong>Nano Banana 2</strong>, launched February 2026 (technically Gemini 3.1 Flash Image), now the default in Google Search, Lens, and AI Mode across 141 countries</li>
+</ul>
+
+<p>Nano Banana supports up to 4K resolution, multi-image blending, and character consistency across up to 5 characters. All outputs carry a SynthID watermark for AI transparency.</p>
+
+<p><strong>The key difference:</strong> Google is the clear leader here with a mature, multi-tier product embedded across its ecosystem. OpenAI has a capable replacement in GPT-Image-2 after transitioning away from DALL-E.</p>
+
+<hr>
+
+<h2 id="deep-research">Deep Research: AI That <em>Dives</em> Deep</h2>
+<p>Multi-step research mode where you ask a big question and the AI autonomously browses the web, synthesizes sources, and returns a full report.</p>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Claude (research mode)</strong></td><td><strong>ChatGPT Deep Research</strong></td><td><strong>Gemini Deep Research / NotebookLM</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>ChatGPT Deep Research</strong> was one of the defining product launches of 2025. The AI finds, analyzes, and synthesizes hundreds of online sources to produce a comprehensive report at "research analyst" level. A more capable version is live now. Available on Plus, with higher limits on Pro/Enterprise.</p>
+
+<p><strong>Gemini Deep Research</strong> is now embedded inside NotebookLM, combining Google's search grounding with source-cited research. You can run deep research and immediately have the sources in your Notebook for follow-up reasoning.</p>
+
+<hr>
+
+<h2 id="browser-extension">Browser Extension: AI Inside Your <em>Browser</em></h2>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><a href="https://claude.com/claude-for-chrome" target="_blank" rel="noopener" class="doc-link">Claude in Chrome ↗</a></strong> (extension)</td>
+      <td><strong><a href="https://chatgpt.com/atlas" target="_blank" rel="noopener" class="doc-link">ChatGPT Atlas ↗</a></strong> (standalone AI browser)</td>
+      <td><strong>Gemini</strong> (native to Chrome)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This is one of the areas where Claude and Google go different directions. <strong>Claude in Chrome</strong> is a browser extension that lets you bring Claude into any webpage: summarizing content, drafting replies, and running Claude while you browse. You install it from the Chrome Web Store.</p>
+
+<p>Google doesn't rely on an extension because Gemini is built directly into Chrome as a persistent side panel. As of January 2026, it includes <strong>Auto Browse</strong>, an agentic mode that can scroll, click, fill forms, and navigate websites on your behalf, making it reactive, not just ambient. Available to AI Pro and Ultra subscribers in the US.</p>
+
+<p>OpenAI took a different approach entirely: <strong>ChatGPT Atlas</strong> is a standalone Chromium-based browser (launched October 2025, macOS first) with ChatGPT built directly into the sidebar, an agent mode that can operate websites on your behalf, and browser memory across sessions. Rather than plugging into Chrome, OpenAI built their own browser around ChatGPT.</p>
+
+<blockquote>
+  <p><strong>A note on browser tools:</strong> Installing extensions or dedicated AI browsers carries inherent security risks. Only install from official sources, review the permissions you grant, and proceed at your own discretion.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="workspace-extension">Workspace Extension: AI Inside Your <em>Spreadsheet</em></h2>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Claude in Excel</strong> (extension)</td><td><strong>ChatGPT for Excel</strong> (Microsoft partnership)</td><td><strong>Gemini in Google Sheets</strong> (native)</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Claude in Excel</strong> is an add-in that brings Claude into Microsoft Excel: writing formulas, analyzing data, and building out spreadsheets through conversation. To install it, search for <strong>Claude by Anthropic</strong> in <a href="https://marketplace.microsoft.com/en-us/product/saas/wa200009404" target="_blank" rel="noopener" class="doc-link">Microsoft AppSource ↗</a> or go to <strong>Home &gt; Add-ins</strong> directly inside Excel and search from there. Requires a paid Claude plan (Pro, Max, Team, or Enterprise) and works on Excel for web, Windows (Microsoft 365), and Mac (version 16.46 or later).</p>
+
+<p><strong>ChatGPT for Excel</strong> exists through Microsoft's broader Copilot and OpenAI partnership within Microsoft 365.</p>
+
+<p><strong>Gemini in Google Sheets</strong> is native. Gemini is already inside every Google Workspace product.</p>
+
+<hr>
+
+<h2 id="connectors">Connectors / Integrations: How AI <em>Plugs</em> Into Your Tools</h2>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Claude Connectors</strong></td><td><strong>ChatGPT App Integrations</strong></td><td><strong>Google MCP / Workspace</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Claude Connectors</strong> is Anthropic's directory of third-party tool integrations available inside Cowork and Claude. Current list includes GitHub, Slack, Gmail, Google Drive, Notion, Asana, Linear, Jira, Figma, Stripe, Canva, ClickUp, and dozens more. All connections use MCP (Model Context Protocol).</p>
+
+<p><strong>ChatGPT App Integrations</strong> launched with pilot partners including Figma, Canva, Booking.com, Coursera, Expedia, Spotify, and Zillow. Available to all logged-in users on Free, Go, Plus, and Pro plans (outside the EEA, Switzerland, and UK for now).</p>
+
+<p><strong>Google</strong> has the home-team advantage in Workspace integrations (Gmail, Drive, Docs, Sheets, Calendar are all native). External tools connect via Google's MCP implementation. Gemini Spark launched with Canva, OpenTable, and Instacart as early partners.</p>
+
+<p><strong>A note on terminology:</strong> MCP is the protocol, the plumbing that makes connections possible. A <strong>Connector</strong> is a single tool integration built on MCP. A <strong>Plugin</strong> bundles multiple Connectors and Skills into one installable package. They're related but not the same thing.</p>
+
+<hr>
+
+<h2 id="skills-gpts-gems">Skills / GPTs / Gems: <em>Reusable</em> AI Configurations</h2>
+<p>Saved AI setups tuned for a specific job: a customer support persona, a coding reviewer, a specific document style.</p>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Skills + Plugins</strong></td><td><strong>GPTs (Custom GPTs)</strong></td><td><strong>Gems</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Claude Skills</strong> are instruction bundles: pre-built workflows for specific tasks (Word document creation, Excel modelling, social media captions, etc.). You can install community Skills or build your own. <strong>Plugins</strong> are larger bundled tools with MCPs and Skills combined, installable from a plugin marketplace.</p>
+
+<p><strong>Custom GPTs</strong> (OpenAI) are user-created or community-created AI configurations that anyone can publish and share. The GPT Store has millions of GPTs. Think of them as apps built on top of ChatGPT.</p>
+
+<p><strong>Gems</strong> (Google) are Gemini's equivalent: saved AI personas with custom instructions and tools attached.</p>
+
+<hr>
+
+<h2 id="developer-platform">The Developer Platform: Building On <em>Top</em></h2>
+
+<table>
+  <thead>
+    <tr><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Anthropic API + Claude Agent SDK</strong></td><td><strong>OpenAI API + Agent SDK</strong></td><td><strong>Google AI Studio + Gemini API + Antigravity SDK</strong></td></tr>
+  </tbody>
+</table>
+
+<p>All three have full APIs for building products on top of their models.</p>
+
+<p>The more interesting layer in 2026 is the <strong>agent SDK</strong>: tools for building multi-step autonomous AI agents.</p>
+
+<p><strong>Claude Agent SDK</strong> is what powers Cowork under the hood: a framework for building agents that can use tools, manage memory, and execute multi-step workflows. Available to developers to build Cowork-style functionality into their own products.</p>
+
+<p><strong>OpenAI's Agent SDK</strong> is the foundation of the Codex agent platform. Supports tool use, parallel agents, and code execution.</p>
+
+<p><strong>Google's Antigravity SDK</strong> is the latest. Announced at I/O 2026, it gives developers programmatic access to the same agent harness powering Google's own products, co-optimized for Gemini models, self-hostable.</p>
+
+<hr>
+
+<h2 id="subscription-tiers">Subscription Tiers: What You're <em>Actually</em> Paying For</h2>
+
+<table>
+  <thead>
+    <tr><th>Feature Level</th><th>Claude</th><th>OpenAI</th><th>Google</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Free</strong></td><td>Claude.ai (limited)</td><td>ChatGPT Free (GPT-5.4 mini default)</td><td>Gemini Free</td></tr>
+    <tr><td><strong>Low-cost paid</strong></td><td>None</td><td>ChatGPT Go ($8/mo)</td><td>Google AI Plus ($7.99/mo)</td></tr>
+    <tr><td><strong>Basic paid</strong></td><td>Claude Pro ($20/mo)</td><td>ChatGPT Plus ($20/mo)</td><td>Google AI Pro ($19.99/mo)</td></tr>
+    <tr><td><strong>Power user</strong></td><td><strong style="color: var(--blue);">Claude Max ($100–$200/mo)</strong></td><td>ChatGPT Pro ($100–$200/mo)</td><td>Google AI Ultra ($100–$200/mo)</td></tr>
+    <tr><td><strong>Teams</strong></td><td>Claude Team</td><td>ChatGPT Team</td><td>Google AI for Workspace</td></tr>
+    <tr><td><strong>Enterprise</strong></td><td>Claude Enterprise</td><td>ChatGPT Enterprise</td><td>Gemini Enterprise</td></tr>
+  </tbody>
+</table>
+
+<p>All three power user tiers now converge on the same $100–$200 range. Claude Max, ChatGPT Pro, and Google AI Ultra each split into two sub-tiers at those price points, with the higher tier offering roughly 4× the usage of the lower.</p>
+
+<p><em>As of May 2026.</em></p>
+
+<hr>
+
+<h2 id="full-map">The Full <em>Map</em>: One Table</h2>
+
+<table>
+  <thead>
+    <tr><th>Category</th><th>Claude / Anthropic</th><th>OpenAI / ChatGPT</th><th>Google / Gemini</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Main chat</td><td>Claude.ai</td><td>ChatGPT</td><td>Gemini</td></tr>
+    <tr><td>Desktop agent</td><td>Claude Cowork</td><td>ChatGPT Agent Mode</td><td>Gemini Spark (beta)</td></tr>
+    <tr><td>Terminal / CLI</td><td>Claude Code</td><td>Codex CLI</td><td>Antigravity CLI (was Gemini CLI)</td></tr>
+    <tr><td>Computer use</td><td>Dispatch</td><td>Codex Computer Use</td><td>Gemini Spark (coming)</td></tr>
+    <tr><td>Persistent projects</td><td>Claude Projects</td><td>ChatGPT Projects</td><td>Notebooks / NotebookLM</td></tr>
+    <tr><td>Document creation</td><td>Skills (Word, Excel, PPT, PDF)</td><td>Canvas</td><td>Docs Live / Workspace</td></tr>
+    <tr><td>Image generation</td><td>None (native)</td><td>GPT-Image-2</td><td>Nano Banana / Pro / 2</td></tr>
+    <tr><td>Live dashboards</td><td>Live Artifacts</td><td>Canvas (app mode)</td><td>None</td></tr>
+    <tr><td>Deep research</td><td>Research mode</td><td>Deep Research</td><td>Gemini Deep Research</td></tr>
+    <tr><td>Browser extension</td><td>Claude in Chrome</td><td>ChatGPT Atlas</td><td>Native in Chrome</td></tr>
+    <tr><td>Spreadsheet extension</td><td>Claude in Excel</td><td>ChatGPT for Excel</td><td>Gemini in Sheets</td></tr>
+    <tr><td>Third-party integrations</td><td>Connectors (via MCP)</td><td>App Integrations</td><td>Google MCP + Workspace</td></tr>
+    <tr><td>Saved AI configs</td><td>Skills + Plugins</td><td>Custom GPTs</td><td>Gems</td></tr>
+    <tr><td>Developer API</td><td>Anthropic API</td><td>OpenAI API</td><td>Gemini API / AI Studio</td></tr>
+    <tr><td>Agent builder framework</td><td>Claude Agent SDK</td><td>OpenAI Agent SDK</td><td>Antigravity SDK</td></tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="how-to-think-about-it">How to <em>Think</em> About It</h2>
+<p>Each provider has a clear centre of gravity.</p>
+
+<p><strong>Anthropic (Claude)</strong> is building for people who want AI embedded in serious work: document creation, project management, scheduled automation, and creative professional workflows. Cowork is the hub. Everything connects back to a workspace folder you own.</p>
+
+<p><strong>OpenAI (ChatGPT)</strong> is building for the widest possible audience and the most deeply agentic product. Codex Computer Use running multiple agents in parallel while you work is genuinely impressive. The GPT Store and massive third-party ecosystem mean there's a ChatGPT for almost every niche task.</p>
+
+<p><strong>Google (Gemini)</strong> is building for people already inside Google's world. If you live in Gmail, Google Docs, and Google Calendar, Gemini Spark is the most seamless path because it doesn't have to ask for permission to access any of it. The Antigravity SDK and Gemini Spark represent a major bet on agents announced this week. Google I/O 2026 was less about models and more about turning every Google product into an agent.</p>
+
+<p>The browser wars ended with Chrome winning. This one is still wide open.</p>
+
+<hr>
+
+<h2 id="sources">Sources</h2>
+<ul>
+  <li><a href="https://claude.com/product/cowork" target="_blank" rel="noopener" class="doc-link">Claude Cowork, Anthropic ↗</a></li>
+  <li><a href="https://support.claude.com/en/articles/14729249-use-live-artifacts-in-claude-cowork" target="_blank" rel="noopener" class="doc-link">Live Artifacts in Claude Cowork, Anthropic ↗</a></li>
+  <li><a href="https://code.claude.com/docs/en/whats-new" target="_blank" rel="noopener" class="doc-link">Claude Code release notes, Anthropic ↗</a></li>
+  <li><a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/" target="_blank" rel="noopener" class="doc-link">Gemini CLI transitioning to Antigravity CLI, Google Developers Blog ↗</a></li>
+  <li><a href="https://openai.com/index/codex-for-almost-everything/" target="_blank" rel="noopener" class="doc-link">Codex Computer Use, OpenAI ↗</a></li>
+  <li><a href="https://openai.com/index/introducing-chatgpt-agent/" target="_blank" rel="noopener" class="doc-link">ChatGPT Agent Mode, OpenAI ↗</a></li>
+</ul>
+
+    </div>
+  </main>
+
+  <section class="article-footer-cta">
+    <div class="article-footer-cta-inner">
+      <h2>Want the next one? <em>Follow along.</em></h2>
+      <p>New guides posted weekly. The settings, prompts, and workflows I actually use.</p>
+      <a href="https://www.instagram.com/throughlouislens" class="btn-cream" target="_blank" rel="noopener" onclick="gtag('event','click',{event_category:'CTA',event_label:'article_follow_instagram'})">Follow on Instagram →</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="footer-text">© 2026 throughlouislens · All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
