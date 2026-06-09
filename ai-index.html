@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Language Landscape - throughlouislens</title>
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="assets/logo/favicon_32_espresso.svg">
+  <link rel="icon" type="image/svg+xml" sizes="64x64" href="assets/logo/favicon_64_espresso.svg">
+  <link rel="icon" type="image/svg+xml" sizes="128x128" href="assets/logo/favicon_128_espresso.svg">
   <link rel="stylesheet" href="guide_article.css">
 
   <!-- Google Analytics 4 -->
@@ -22,15 +25,15 @@
       <a href="index.html" class="nav-brand">throughlouislens</a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="guides/" class="active">Guides</a></li>
-        <li><a href="templates/">Templates</a></li>
+        <li><a href="02_free_guides.html" class="active">Guides</a></li>
+        <li><a href="03_templates_page.html">Templates</a></li>
       </ul>
     </div>
   </nav>
 
   <header class="article-header">
     <div class="article-header-inner">
-      <a href="guides/" class="article-back-link">← All Guides</a>
+      <a href="02_free_guides.html" class="article-back-link">← All Guides</a>
       <span class="article-eyebrow">AI · Reference</span>
       <h1 class="article-title">AI Language Landscape</h1>
       <p class="article-meta"><strong>18 min read</strong> <span>·</span> Published May 2026 <span>·</span> throughlouislens</p>
@@ -48,6 +51,54 @@
 <p>The smallest unit a LLM uses to process text. Not quite a word, not quite a character, somewhere in between. One token is about three-quarters of a word in English. The word "fantastic" is one token. The word "uncharacteristically" might be three.</p>
 <p>Why it matters: Claude doesn't read your message the way you do. It processes everything as a stream of tokens. Every word you type, every word Claude generates, and every piece of context loaded into a session (CLAUDE.md, skill files, connector data) is counted in tokens. When the session runs out of space, older content gets pushed out to make room for new content. This is known as the context window.</p>
 <p>Tokens also determine cost when using the API. The longer your conversation and the more context you load, the more tokens are consumed.</p>
+
+<div class="ui-mock">
+  <div class="ui-mock-card">
+    <div class="ui-mock-head">
+      <div class="mac-traffic">
+        <span class="mac-dot mac-red"></span>
+        <span class="mac-dot mac-yellow"></span>
+        <span class="mac-dot mac-green"></span>
+      </div>
+      <span class="ui-mock-title">What's a Token?</span>
+      <span class="ui-mock-tag">Window</span>
+    </div>
+    <div class="xpl-body">
+      <p class="xpl-eyebrow">How AI Reads Text</p>
+      <h4 class="xpl-h2">What's a Token?</h4>
+      <p class="xpl-p">A token is a small chunk of text that an AI model reads and processes. It's not always a full word. Common words stay whole, but longer or rarer words get split into pieces. Every message you send gets broken into tokens before the model sees it.</p>
+      <div class="tok-viz">
+        <div class="tok-words">
+          <div class="tok-unit"><span>The</span><div class="tok-bar tb-blue"></div></div>
+          <div class="tok-unit"><span>quick</span><div class="tok-bar tb-orange"></div></div>
+          <div class="tok-unit"><span>brown</span><div class="tok-bar tb-green"></div></div>
+          <div class="tok-unit"><span>fox</span><div class="tok-bar tb-blue"></div></div>
+          <div class="tok-unit"><span>jump</span><div class="tok-bar tb-split"></div></div>
+          <div class="tok-unit"><span>ed</span><div class="tok-bar tb-split"></div></div>
+          <div class="tok-unit"><span>over</span><div class="tok-bar tb-orange"></div></div>
+          <div class="tok-unit"><span>the</span><div class="tok-bar tb-blue"></div></div>
+          <div class="tok-unit"><span>un</span><div class="tok-bar tb-split"></div></div>
+          <div class="tok-unit"><span>believ</span><div class="tok-bar tb-split"></div></div>
+          <div class="tok-unit"><span>ably</span><div class="tok-bar tb-split"></div></div>
+          <div class="tok-unit"><span>lazy</span><div class="tok-bar tb-green"></div></div>
+          <div class="tok-unit"><span>dog</span><div class="tok-bar tb-orange"></div></div>
+        </div>
+        <div class="tok-legend">
+          <div class="tok-legend-item"><div class="tok-legend-dot" style="background:#4A90D9"></div> Whole word</div>
+          <div class="tok-legend-item"><div class="tok-legend-dot" style="background:#E8944A"></div> Whole word</div>
+          <div class="tok-legend-item"><div class="tok-legend-dot tld-split"></div> Split into parts</div>
+        </div>
+        <div class="tok-summary">
+          <span class="tok-summary-num">13</span>
+          <p class="tok-summary-text">tokens from 10 words. "jumped" splits into "jump" + "ed" and "unbelievably" becomes three pieces.</p>
+        </div>
+      </div>
+      <p class="xpl-eyebrow">Why It Matters</p>
+      <p class="xpl-p" style="margin-bottom:0">Token count determines how much you can fit into a single conversation. When people say a model has a "200K context window," they mean it can hold 200,000 tokens at once. Longer words and code use more tokens than plain English, so the same character count can cost very different amounts of space.</p>
+    </div>
+  </div>
+</div>
+
 <h3 id="context-window">Context Window</h3>
 <p>The total amount of text Claude can "hold in mind" at once during a single session. Think of it like a whiteboard. Every message you send, every response Claude gives, every file it reads, and every skill it loads gets written on that whiteboard. When the whiteboard fills up, older content gets erased from the top to make room.</p>
 <p>This is why very long sessions can start to feel like Claude is "forgetting" things, it hasn't forgotten them exactly, it's just that those messages have scrolled off the whiteboard.</p>
@@ -379,10 +430,138 @@
     .ui-dp-sidebar { width: 100%; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.09); }
     .ui-mock-tag { display: none; }
   }
+
+  /* ---------- Inline explainer windows (Token + Markdown) ---------- */
+  .xpl-body { padding: 1.2rem 1.3rem 1.4rem; }
+  .ui-mock-card .xpl-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #1B4FD8; margin-bottom: 0.5rem; }
+  .ui-mock-card .xpl-h2 { font-size: 1.1rem; font-weight: 700; color: #1A1A1A; letter-spacing: -0.015em; line-height: 1.15; margin-bottom: 0.65rem; }
+  .ui-mock-card .xpl-p { font-size: 0.8125rem; color: rgba(0,0,0,0.55); line-height: 1.6; margin-bottom: 0.85rem; }
+
+  /* File format grid */
+  .fmt-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.55rem; margin-bottom: 1rem; }
+  .fmt-card { display: flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 0.5rem 0.65rem; }
+  .fmt-icon { width: 28px; height: 28px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .fmt-icon svg { width: 28px; height: 28px; }
+  .fmt-info { display: flex; flex-direction: column; gap: 0.1rem; }
+  .fmt-ext { font-size: 0.8125rem; font-weight: 600; color: #1A1A1A; }
+  .fmt-label { font-size: 0.6875rem; color: rgba(0,0,0,0.45); }
+
+  /* Highlighted .md card */
+  .fmt-md-card { display: flex; align-items: flex-start; gap: 0.75rem; border: 2px solid #1B4FD8; border-radius: 10px; padding: 0.9rem 1rem; background: rgba(27,79,216,0.03); margin-bottom: 1.2rem; }
+  .fmt-md-icon { width: 32px; height: 32px; background: #1B4FD8; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 9px; font-weight: 800; letter-spacing: 0.04em; flex-shrink: 0; }
+  .ui-mock-card .fmt-md-title { font-size: 1rem; font-weight: 700; color: #1A1A1A; margin-bottom: 0.2rem; }
+  .ui-mock-card .fmt-md-desc { font-size: 0.8125rem; color: rgba(0,0,0,0.55); line-height: 1.55; }
+
+  /* Why list (numbered) */
+  .xpl-why-list { display: flex; flex-direction: column; gap: 0.55rem; }
+  .xpl-why-item { display: flex; gap: 0.6rem; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 0.7rem 0.85rem; align-items: flex-start; }
+  .xpl-why-num { width: 22px; height: 22px; border-radius: 5px; background: rgba(27,79,216,0.08); color: #1B4FD8; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .ui-mock-card .xpl-why-text { font-size: 0.8125rem; color: rgba(0,0,0,0.55); line-height: 1.55; }
+  .ui-mock-card .xpl-why-text strong { color: #1A1A1A; }
+
+  /* Token visualization */
+  .tok-viz { border: 1px solid rgba(0,0,0,0.1); border-radius: 10px; padding: 0.9rem 1rem 0.8rem; margin-bottom: 1rem; }
+  .tok-words { display: flex; flex-wrap: wrap; gap: 0.5rem 0.35rem; margin-bottom: 1rem; align-items: flex-end; }
+  .tok-unit { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .tok-unit span:first-child { font-size: 0.875rem; font-weight: 500; color: #1A1A1A; letter-spacing: -0.01em; }
+  .tok-bar { height: 4px; border-radius: 2px; width: 100%; min-width: 24px; }
+  .tok-bar.tb-blue { background: #4A90D9; }
+  .tok-bar.tb-orange { background: #E8944A; }
+  .tok-bar.tb-green { background: #6BBF6B; }
+  .tok-bar.tb-split { background: linear-gradient(90deg, #9B7ED8 50%, #D87EAF 50%); }
+  .tok-legend { display: flex; gap: 1.4rem; margin-bottom: 1rem; }
+  .tok-legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8125rem; color: rgba(0,0,0,0.45); }
+  .tok-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .tok-legend-dot.tld-split { background: linear-gradient(90deg, #9B7ED8 50%, #D87EAF 50%); }
+  .tok-summary { border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 0.65rem 0.85rem; display: flex; gap: 0.5rem; align-items: flex-start; }
+  .tok-summary-num { font-size: 1.25rem; font-weight: 700; color: #1B4FD8; line-height: 1; flex-shrink: 0; }
+  .ui-mock-card .tok-summary-text { font-size: 0.8125rem; color: #1A1A1A; line-height: 1.5; }
+
+  @media (max-width: 640px) {
+    .xpl-body { padding: 1.4rem 1.3rem 1.6rem; }
+    .fmt-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .fmt-card { padding: 0.6rem 0.7rem; gap: 0.5rem; }
+    .fmt-icon { width: 30px; height: 30px; }
+    .fmt-icon svg { width: 30px; height: 30px; }
+    .fmt-ext { font-size: 0.8125rem; }
+    .fmt-md-card { padding: 1rem 1.1rem; gap: 0.75rem; }
+    .tok-words { gap: 0.4rem 0.25rem; }
+    .tok-unit span:first-child { font-size: 1rem; }
+    .xpl-why-item { padding: 0.9rem 1rem; }
+    .tok-legend { flex-wrap: wrap; gap: 0.8rem; }
+  }
 </style>
 
 <p>No special software required, any text editor (TextEdit on Mac will do) can open and edit a <code>.md</code> file.</p>
 <p>Why it matters in Cowork: CLAUDE.md (your project memory file), SKILL.md (your skill instruction files), and most reference documents in a project are markdown files. They're lightweight, universally readable, and Claude can read and write them directly.</p>
+
+<div class="ui-mock">
+  <div class="ui-mock-card">
+    <div class="ui-mock-head">
+      <div class="mac-traffic">
+        <span class="mac-dot mac-red"></span>
+        <span class="mac-dot mac-yellow"></span>
+        <span class="mac-dot mac-green"></span>
+      </div>
+      <span class="ui-mock-title">What's a Markdown File?</span>
+      <span class="ui-mock-tag">Window</span>
+    </div>
+    <div class="xpl-body">
+      <p class="xpl-eyebrow">File Formats You Already Know</p>
+      <h4 class="xpl-h2">What's a Markdown File?</h4>
+      <p class="xpl-p">You already work with file formats every day without thinking about them. Each one is just a way of packaging information so the right app knows how to open it.</p>
+      <div class="fmt-grid">
+        <div class="fmt-card">
+          <div class="fmt-icon"><svg viewBox="0 0 36 36" fill="none"><rect x="4" y="2" width="28" height="32" rx="3" stroke="#E74C3C" stroke-width="1.4" fill="#fff"></rect><rect x="8" y="24" width="20" height="8" rx="1.5" fill="#E74C3C"></rect><text x="18" y="30" text-anchor="middle" fill="#fff" font-size="7" font-weight="800" font-family="-apple-system,system-ui,sans-serif">PDF</text></svg></div>
+          <div class="fmt-info"><span class="fmt-ext">.pdf</span><span class="fmt-label">Documents</span></div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-icon"><svg viewBox="0 0 36 36" fill="none"><rect x="4" y="2" width="28" height="32" rx="3" stroke="#2B5797" stroke-width="1.4" fill="#fff"></rect><rect x="8" y="24" width="20" height="8" rx="1.5" fill="#2B5797"></rect><text x="18" y="30" text-anchor="middle" fill="#fff" font-size="5.8" font-weight="800" font-family="-apple-system,system-ui,sans-serif">DOCX</text></svg></div>
+          <div class="fmt-info"><span class="fmt-ext">.docx</span><span class="fmt-label">Word by Microsoft</span></div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-icon"><svg viewBox="0 0 36 36" fill="none"><rect x="4" y="2" width="28" height="32" rx="3" stroke="#27AE60" stroke-width="1.4" fill="#fff"></rect><rect x="8" y="24" width="20" height="8" rx="1.5" fill="#27AE60"></rect><text x="18" y="30" text-anchor="middle" fill="#fff" font-size="6.5" font-weight="800" font-family="-apple-system,system-ui,sans-serif">PNG</text></svg></div>
+          <div class="fmt-info"><span class="fmt-ext">.png</span><span class="fmt-label">Images</span></div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-icon"><svg viewBox="0 0 36 36" fill="none"><rect x="4" y="2" width="28" height="32" rx="3" stroke="#E67E22" stroke-width="1.4" fill="#fff"></rect><rect x="8" y="24" width="20" height="8" rx="1.5" fill="#E67E22"></rect><text x="18" y="30" text-anchor="middle" fill="#fff" font-size="5.8" font-weight="800" font-family="-apple-system,system-ui,sans-serif">HTML</text></svg></div>
+          <div class="fmt-info"><span class="fmt-ext">.html</span><span class="fmt-label">Websites</span></div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-icon"><svg viewBox="0 0 36 36" fill="none"><rect x="4" y="2" width="28" height="32" rx="3" stroke="#C0392B" stroke-width="1.4" fill="#fff"></rect><rect x="8" y="24" width="20" height="8" rx="1.5" fill="#C0392B"></rect><text x="18" y="30" text-anchor="middle" fill="#fff" font-size="5.8" font-weight="800" font-family="-apple-system,system-ui,sans-serif">PPTX</text></svg></div>
+          <div class="fmt-info"><span class="fmt-ext">.pptx</span><span class="fmt-label">PowerPoint by Microsoft</span></div>
+        </div>
+        <div class="fmt-card">
+          <div class="fmt-icon"><svg viewBox="0 0 36 36" fill="none"><rect x="4" y="2" width="28" height="32" rx="3" stroke="#1E8449" stroke-width="1.4" fill="#fff"></rect><rect x="8" y="24" width="20" height="8" rx="1.5" fill="#1E8449"></rect><text x="18" y="30" text-anchor="middle" fill="#fff" font-size="5.8" font-weight="800" font-family="-apple-system,system-ui,sans-serif">XLSX</text></svg></div>
+          <div class="fmt-info"><span class="fmt-ext">.xlsx</span><span class="fmt-label">Excel by Microsoft</span></div>
+        </div>
+      </div>
+      <div class="fmt-md-card">
+        <div class="fmt-md-icon">MD</div>
+        <div>
+          <p class="fmt-md-title">.md</p>
+          <p class="fmt-md-desc">Markdown. A plain-text format that uses simple symbols to create headings, bold text, lists, and links. It's the format AI tools like Claude use to read and write structured content.</p>
+        </div>
+      </div>
+      <p class="xpl-eyebrow">Why AI Uses Markdown</p>
+      <div class="xpl-why-list">
+        <div class="xpl-why-item">
+          <span class="xpl-why-num">1</span>
+          <p class="xpl-why-text"><strong>It's readable raw.</strong> Unlike .docx or .pptx, you don't need special software. Open a .md file in any text editor and it makes sense immediately.</p>
+        </div>
+        <div class="xpl-why-item">
+          <span class="xpl-why-num">2</span>
+          <p class="xpl-why-text"><strong>It's lightweight.</strong> No hidden formatting, no XML, no binary encoding. Just text and a few symbols. That means AI models can process it efficiently without wasting tokens on invisible code.</p>
+        </div>
+        <div class="xpl-why-item">
+          <span class="xpl-why-num">3</span>
+          <p class="xpl-why-text"><strong>It works everywhere.</strong> Notion, GitHub, Slack, Claude, ChatGPT, Obsidian, VS Code. Markdown is the shared language across the tools that power modern workflows.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <hr>
 <h2 id="the-claude-products">The Claude <em>Collection</em></h2>
 <p>The suite from Anthropic you'll be using. Same model under the hood, very different surfaces.</p>
@@ -614,7 +793,7 @@
 <p>The technical standard that makes connectors work. MCP stands for <strong>Model Context Protocol</strong>, an open protocol that defines how AI assistants like Claude connect to external tools and services.</p>
 <p>MCP is an open protocol (a shared communication format) that defines how AI assistants like Claude connect to external tools and services. This universal standard lets Claude plug into any tool that supports it. Developers build MCP-compatible connectors for their apps, Claude uses those connectors to talk to the apps.</p>
 <ul>
-<li><strong>Model</strong>: LLM <span style="color: var(--blue); font-weight: 500;">Claude by Anthropic</span>, ChatGPT by OpenAI, Gemini by Google.</li>
+<li><strong>Model</strong>: LLM <span style="color: var(--blue); font-weight: 500;">Claude by Anthropic</span>, GPT by OpenAI, Gemini by Google.</li>
 <li><strong>Context</strong>: the data and capabilities the model gets access to.</li>
 <li><strong>Protocol</strong>: the agreed-upon standard for how communication happens.</li>
 </ul>
