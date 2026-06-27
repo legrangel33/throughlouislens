@@ -1,379 +1,521 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>throughlouislens</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream:        #F5F0E8;
-      --black:        #1C1108;
-      --blue:         #1B4FD8;
-      --cobalt-mid:   #4A7FC1;
-      --blue-light:   rgba(27, 79, 216, 0.06);
-      --border-light: rgba(28, 17, 8, 0.10);
-      --border-med:   rgba(28, 17, 8, 0.20);
-      --text-muted:   rgba(28, 17, 8, 0.55);
-      --font:         -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
-      --font-serif:   'New York', ui-serif, Georgia, serif;
-    }
-
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font); background: var(--cream); color: var(--black); font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-
-    /* ── NAV ─────────────────────────────────────── */
-    .nav { background: var(--black); padding: 0 3.5rem; position: sticky; top: 0; z-index: 100; }
-    .nav-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
-    .nav-brand { color: var(--cream); font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-decoration: none; }
-    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
-    .nav-links a { color: rgba(245,240,232,0.6); font-size: 14px; text-decoration: none; letter-spacing: 0.03em; transition: color 0.18s ease; }
-    .nav-links a:hover, .nav-links a.active { color: var(--cream); }
-
-    /* ── HERO ────────────────────────────────────── */
-    .hero { background: var(--blue); padding: 5.5rem 3.5rem; }
-    .hero-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; min-height: 380px; }
-    .hero-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,240,232,0.55); margin-bottom: 1rem; }
-    .hero-title { font-size: clamp(2.8rem, 6vw, 4.8rem); font-weight: 700; line-height: 1.0; color: var(--cream); letter-spacing: -0.02em; margin-bottom: 1.4rem; }
-    .hero-title em { font-style: italic; font-family: var(--font-serif); font-weight: 400; letter-spacing: 0; }
-    .hero-sub { font-size: 1.05rem; line-height: 1.65; color: rgba(245,240,232,0.72); max-width: 460px; margin-bottom: 2.2rem; }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary { background: var(--cream); color: var(--blue); font-size: 14px; font-weight: 600; letter-spacing: 0.05em; padding: 12px 26px; border-radius: 6px; text-decoration: none; display: inline-block; transition: opacity 0.18s ease, transform 0.18s ease; }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-    .btn-secondary { background: transparent; color: var(--cream); font-size: 14px; font-weight: 500; padding: 12px 26px; border-radius: 6px; border: 1px solid rgba(245,240,232,0.35); text-decoration: none; display: inline-block; transition: border-color 0.18s ease, background 0.18s ease; }
-    .btn-secondary:hover { border-color: rgba(245,240,232,0.65); background: rgba(245,240,232,0.07); }
-    .hero-visual { display: flex; justify-content: center; align-items: center; }
-    .hero-img-box { width: 100%; max-width: 440px; aspect-ratio: 4/5; border-radius: 14px; overflow: hidden; position: relative; box-shadow: 0 30px 80px -20px rgba(10,31,92,0.45); }
-    .hero-img-box img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
-
-    /* ── QUOTE ───────────────────────────────────── */
-    .quote-strip { background: var(--black); padding: 2.8rem 3.5rem; text-align: center; }
-    .quote-text { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.05rem, 2vw, 1.35rem); color: rgba(245,240,232,0.78); max-width: 680px; margin: 0 auto; line-height: 1.6; }
-    .quote-text strong { color: var(--cream); font-style: normal; }
-
-
-    /* ── SECTION DIVIDER (espresso strip) ────────── */
-    .section-divider { display: none; }
-    .bio-section { background: var(--cream); padding: 5rem 3.5rem 2.5rem; }
-    .bio-inner { max-width: 1280px; margin: 0 auto; }
-    .bio-eyebrow { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.6rem; }
-    .bio-title { font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 700; letter-spacing: -0.015em; line-height: 1.15; color: var(--black); margin-bottom: 1.6rem; max-width: 760px; }
-    .bio-card { background: #fff; border: 1px solid var(--border-light); border-radius: 14px; padding: 2.2rem 2.4rem; max-width: 880px; }
-    .bio-card p { font-size: 1.0625rem; line-height: 1.75; color: var(--black); margin-bottom: 1.1rem; }
-    .bio-card p:last-child { margin-bottom: 0; }
-
-    /* ── SECTIONS ────────────────────────────────── */
-    .section { padding: 2.5rem 3.5rem; }
-    .section-inner { max-width: 1280px; margin: 0 auto; }
-    .section-eyebrow { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.6rem; }
-    .section-title { font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 700; letter-spacing: -0.015em; line-height: 1.1; color: var(--black); margin-bottom: 0.75rem; }
-    .section-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 540px; margin-bottom: 3rem; }
-
-    /* ── FEATURES ────────────────────────────────── */
-    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .feature-card { background: #fff; border: 1px solid var(--border-light); border-radius: 14px; padding: 2.2rem 2.4rem; transition: border-color 0.22s ease, transform 0.22s ease; }
-    .feature-card:hover { border-color: var(--blue); transform: translateY(-3px); }
-    .feature-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.7rem; }
-    .feature-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-    .feature-title { font-size: 1.1rem; font-weight: 600; color: var(--black); letter-spacing: -0.01em; margin: 0; }
-    .feature-desc { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.65; }
-
-    /* ── GUIDES ──────────────────────────────────── */
-    .guides-wrap { padding: 2.5rem 3.5rem 5rem; }
-    .guides-inner { max-width: 1280px; margin: 0 auto; }
-    .guides-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem; }
-    .view-all { font-size: 14px; color: var(--blue); text-decoration: none; font-weight: 500; white-space: nowrap; transition: opacity 0.18s ease; }
-    .view-all:hover { opacity: 0.7; }
-
-    /* Desktop card grid */
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-    .card {
-      background: #fff; border: 1px solid var(--border-light); border-radius: 12px;
-      padding: 1.7rem 2rem; display: flex; flex-direction: column; gap: 0.55rem;
-      text-decoration: none; color: inherit;
-      transition: border-color 0.22s ease, transform 0.22s ease;
-    }
-    .card:hover {
-      border-color: var(--blue);
-      transform: translateY(-3px);
-    }
-    .card-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
-    .card-title { font-size: 1.025rem; font-weight: 600; color: var(--black); line-height: 1.3; }
-    .card-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; flex: 1; }
-    .card-link { font-size: 13px; color: var(--blue); text-decoration: none; font-weight: 500; margin-top: 0.4rem; display: inline-block; transition: opacity 0.15s ease; }
-    .card-link:hover { opacity: 0.7; }
-
-    /* Coming-soon variant for landing cards */
-    .card.coming-soon { opacity: 0.6; }
-    .card.coming-soon:hover { border-color: var(--border-light); transform: none; }
-    .card-soon { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(28,17,8,0.07); color: var(--text-muted); padding: 4px 10px; border-radius: 10px; align-self: flex-start; margin-top: 0.4rem; }
-    .guide-row.coming-soon { opacity: 0.6; pointer-events: none; }
-    .guide-row-soon { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); flex-shrink: 0; margin-left: 0.25rem; }
-
-    /* Row list layout (mobile only) */
-    .guide-list { display: none; }
-
-    /* ── SOCIAL CTA (dark, matches templates page) ─ */
-    .social-section { background: var(--black); padding: 4.5rem 3.5rem; text-align: center; }
-    .social-inner { max-width: 600px; margin: 0 auto; }
-    .social-title { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 700; color: var(--cream); letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 0.8rem; }
-    .social-sub { font-size: 1rem; color: rgba(245,240,232,0.6); margin-bottom: 2rem; line-height: 1.7; }
-    .social-btns { display: flex; gap: 1rem; justify-content: center; }
-    .btn-ig { background: var(--blue); color: var(--cream); font-size: 14px; font-weight: 600; letter-spacing: 0.05em; padding: 12px 28px; border-radius: 6px; text-decoration: none; transition: opacity 0.18s ease, transform 0.18s ease; display: inline-block; }
-    .btn-ig:hover { opacity: 0.88; transform: translateY(-1px); }
-
-    /* ── FOOTER ──────────────────────────────────── */
-    .footer { background: var(--black); padding: 2rem 3.5rem; text-align: center; }
-    .footer-text { font-size: 13px; color: rgba(245,240,232,0.3); letter-spacing: 0.02em; }
-
-
-    /* ═══════════════════════════════════════════════
-       MOBILE  ≤ 768px
-    ═══════════════════════════════════════════════ */
-    @media (max-width: 768px) {
-
-      .nav { padding: 0; position: sticky; top: 0; }
-      .nav-inner { flex-direction: column; height: auto; padding: 0.75rem 1.5rem 0.6rem; gap: 0.35rem; align-items: center; }
-      .nav-brand { font-size: 14px; letter-spacing: 0.1em; }
-      .nav-links { display: flex; gap: 1.4rem; justify-content: center; }
-      .nav-links a { font-size: 12px; letter-spacing: 0.05em; color: rgba(245,240,232,0.55); }
-
-      .hero { padding: 3rem 1.5rem 2.5rem; }
-      .hero-inner { grid-template-columns: 1fr; gap: 0; min-height: unset; text-align: center; }
-      .hero-eyebrow { font-size: 11px; margin-bottom: 0.7rem; }
-      .hero-title { font-size: clamp(2.6rem, 12vw, 3.8rem); line-height: 0.95; margin-bottom: 1.2rem; letter-spacing: -0.02em; }
-      .hero-sub { font-size: 0.9375rem; max-width: 100%; margin-bottom: 1.8rem; color: rgba(245,240,232,0.68); }
-      .hero-ctas { justify-content: center; gap: 0.75rem; }
-      .btn-primary, .btn-secondary { font-size: 13px; padding: 11px 22px; }
-      .hero-visual { display: flex; justify-content: center; margin-top: 2rem; }
-      .hero-img-box { width: 170px; max-width: 170px; }
-
-      .quote-strip { padding: 2rem 1.5rem; }
-      .quote-text { font-size: 1rem; }
-
-      .bio-section { padding: 2.5rem 1.5rem 1.5rem; }
-      .bio-title { font-size: 1.5rem; margin-bottom: 1rem; }
-      .bio-card { padding: 1.4rem 1.4rem; border-radius: 12px; }
-      .bio-card p { font-size: 0.9375rem; line-height: 1.7; }
-
-      .section { padding: 1.5rem 1.5rem 2rem; }
-      .section-title { font-size: 1.5rem; margin-bottom: 0.6rem; }
-      .section-sub { font-size: 0.9375rem; margin-bottom: 1.6rem; max-width: 100%; }
-
-      .feature-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .feature-card { padding: 1.6rem 1.6rem; border-radius: 12px; }
-
-      .guides-wrap { padding: 1.5rem 0 3rem; }
-      .guides-inner { padding: 0; }
-      .guides-header { padding: 0 1.5rem; margin-bottom: 1.25rem; align-items: center; }
-      .guides-header .section-title { font-size: 1.4rem; }
-
-      .card-grid { display: none; }
-
-      .guide-list { display: block; border-top: 1px solid var(--border-light); }
-      .guide-row {
-        display: flex; align-items: center; gap: 0.75rem;
-        padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border-light);
-        text-decoration: none; color: inherit;
-        transition: background 0.18s ease;
-      }
-      .guide-row:hover { background: rgba(27,79,216,0.04); }
-      .guide-row-body { flex: 1; min-width: 0; }
-      .guide-row-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.2rem; display: block; }
-      .guide-row-title { font-size: 0.9375rem; font-weight: 600; color: var(--black); line-height: 1.3; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .guide-row-desc { font-size: 0.8125rem; color: var(--text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-      .guide-row-arrow { font-size: 1.1rem; color: var(--text-muted); flex-shrink: 0; margin-left: 0.25rem; transition: transform 0.18s ease, color 0.18s ease; }
-      .guide-row:hover .guide-row-arrow { transform: translateX(3px); color: var(--blue); }
-
-      .social-section { padding: 3.5rem 1.5rem; }
-      .social-title { font-size: 1.4rem; }
-      .social-sub { font-size: 0.9375rem; margin-bottom: 1.8rem; }
-      .social-btns { flex-direction: column; align-items: center; gap: 0.75rem; }
-      .btn-ig { width: 100%; max-width: 280px; text-align: center; padding: 13px 20px; }
-
-      .footer { padding: 1.5rem 1.5rem; }
-    }
-
-    /* iPad (769–1024px) */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .nav, .hero, .bio-section, .section, .guides-wrap, .social-section, .footer, .quote-strip {
-        padding-left: 2rem; padding-right: 2rem;
-      }
-      .hero-inner { gap: 3rem; }
-      .hero-img-box { max-width: 300px; }
-      .card-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-    }
-
-    /* Large screens (1440px+) */
-    @media (min-width: 1440px) {
-      .hero { padding-top: 7rem; padding-bottom: 7rem; }
-      .hero-img-box { max-width: 520px; }
-    }
-  </style>
-
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WM5BFDS41D"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-WM5BFDS41D');
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
+<x-dc>
+<helmet>
+<script src="./tll-feel.js"></script>
+<style>
+  html, body { background:#000; margin:0; }
+  body { cursor:none; overflow-x:hidden; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif; }
+  a, button, summary, [data-cursor-target] { cursor:none; }
+  /* ===== Responsive — targets inline styles via attribute selectors =====
+     Breakpoints:
+       ≤1728  MacBook 16"          (tighten outer chrome)
+       ≤1366  iPad 13" landscape   (section padding)
+       ≤1024  iPad portrait        (2-col → 1-col, 3-col → 2-col, hide cursor scaling)
+       ≤640   iPhone               (everything stacks, hide custom cursor)
+  ============================================================== */
+  @media (max-width: 1728px) {
+    nav[data-tll-nav]{top:24px !important; width:calc(100% - 64px) !important;}
+  }
+  @media (max-width: 1366px) {
+    section{padding-left:32px !important; padding-right:32px !important;}
+    footer{padding-left:32px !important; padding-right:32px !important;}
+  }
+  @media (max-width: 900px) {
+    /* About section stacks: portrait → About → What you'll see */
+    section#about > div[data-reveal]{grid-template-columns:1fr !important; gap:40px !important; margin-top:64px !important;}
+    section#about > div[data-reveal] > div:first-child{max-width:480px; margin:0 auto; aspect-ratio:1/1 !important;}
+  }
+  @media (max-width: 1024px) {
+    section{padding-top:120px !important; padding-bottom:80px !important; padding-left:28px !important; padding-right:28px !important;}
+    footer{padding-left:28px !important; padding-right:28px !important;}
+    /* Triptych zoom plate: keep 3-up but shorter on iPad */
+    section[data-zoom]{height:90vh !important; padding:0 !important;}
+    section[data-zoom] [data-zoom-inner]{height:90vh !important;}
+    section[data-zoom] [data-zoom-img]{gap:6px !important;}
+    section[data-zoom] [data-zoom-img] > div > div:last-child{font-size:10px !important; left:16px !important; bottom:16px !important; letter-spacing:.18em !important;}
+    /* 2-col → 1-col */
+    div[style*="grid-template-columns:1fr 1fr;"]{grid-template-columns:1fr !important; gap:48px !important;}
+    div[style*="grid-template-columns:1fr 1.4fr"]{grid-template-columns:1fr !important; gap:40px !important;}
+    div[style*="grid-template-columns:1fr auto;"]{grid-template-columns:1fr !important; gap:32px !important;}
+    /* 3-col → 2-col */
+    div[style*="grid-template-columns:1.4fr 1fr 1fr"]{grid-template-columns:1fr 1fr !important; gap:18px !important;}
+    /* Services rows: tighter */
+    div[style*="grid-template-columns:100px 1fr auto"]{grid-template-columns:60px 1fr auto !important; padding:32px 20px !important; gap:16px !important;}
+    div[data-svc-img]{display:none !important;}
+    /* Nav: tighten link gap on tablet */
+    nav[data-tll-nav] [data-nav-links]{gap:18px !important;}
+    nav[data-tll-nav] a[data-nav-link]{font-size:12px !important; letter-spacing:.18em !important;}
+    nav[data-tll-nav]{top:20px !important; width:calc(100% - 48px) !important;}
+    /* Hero font sizes */
+    h1[data-hero-h1]{font-size:clamp(56px,10.5vw,140px) !important;}
+  }
+  @media (max-width: 640px) {
+    section{padding-left:18px !important; padding-right:18px !important; padding-top:72px !important; padding-bottom:48px !important;}
+    footer{padding-left:18px !important; padding-right:18px !important;}
+    /* Hero: drop the full-vh and dead space */
+    section#top{min-height:auto !important; padding:96px 18px 28px !important;}
+    section#top [data-hero-badge]{margin-bottom:32px !important; font-size:11px !important; letter-spacing:.18em !important;}
+    section#top [data-hero-copy]{margin-top:36px !important;}
+    section#top [data-hero-copy] p{font-size:14px !important; margin-bottom:24px !important;}
+    /* Nav on phone: clock left, compact links right */
+    nav[data-tll-nav]{padding:12px 16px !important; gap:8px !important;}
+    nav[data-tll-nav] [data-clock-wrap]{font-size:11px !important; letter-spacing:.18em !important;}
+    nav[data-tll-nav] [data-clock-wrap] [data-clock-label]{display:none !important;}
+    nav[data-tll-nav] [data-nav-links]{gap:14px !important;}
+    nav[data-tll-nav] a[data-nav-link]{font-size:11px !important; letter-spacing:.16em !important;}
+    /* Triptych zoom plate: stack to 1-col vertical scroll on phone */
+    section[data-zoom]{height:auto !important; padding:0 !important;}
+    section[data-zoom] [data-zoom-inner]{position:relative !important; height:auto !important;}
+    section[data-zoom] [data-zoom-img]{position:relative !important; inset:auto !important; grid-template-columns:1fr !important; gap:6px !important; transform:none !important;}
+    section[data-zoom] [data-zoom-img] > div{aspect-ratio:9/16; width:100%;}
+    section[data-zoom] > div > div:last-child{display:none !important;} /* hide global ///01—03 corner badge on mobile */
+    nav[data-tll-nav]{top:14px !important; width:calc(100% - 28px) !important;}
+    /* 3-col → 1-col */
+    div[style*="grid-template-columns:1.4fr 1fr 1fr"]{grid-template-columns:1fr !important;}
+    /* Award rows: drop fixed columns */
+    div[style*="grid-template-columns:80px 80px 1fr auto"]{grid-template-columns:40px 56px 1fr auto !important; gap:12px !important;}
+    /* Hero bottom row */
+    div[data-r="hero-bottom"]{position:static !important; margin:32px 0 0 !important; left:auto !important; right:auto !important; bottom:auto !important; flex-direction:column !important; gap:10px !important; align-items:flex-start !important;}
+    /* Hero CTA row stacks */
+    div[data-r="hero-ctas"]{flex-direction:column !important; gap:10px !important;}
+    div[data-r="hero-ctas"] a{display:block !important; text-align:center !important;}
+    /* Hero lockup must fit the viewport */
+    h1[data-hero-h1]{font-size:clamp(34px,9vw,64px) !important; white-space:nowrap !important;}
+    /* Disable custom cursor on touch */
+    body{cursor:auto !important;}
+    [data-cursor-ring],[data-cursor-dot]{display:none !important;}
+  }
+  /* Pulse for status dot */
+  @keyframes tll-pulse {
+    0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(27,79,216,.55); }
+    50%     { opacity:.55; box-shadow:0 0 0 12px rgba(27,79,216,0); }
+  }
+  /* Marquee */
+  @keyframes tll-mq { from { transform:translate3d(0,0,0); } to { transform:translate3d(-50%,0,0); } }
+  @keyframes tll-mq-r { from { transform:translate3d(-50%,0,0); } to { transform:translate3d(0,0,0); } }
+  /* Reveal animations run on load via CSS @keyframes (no JS class toggle dependency). */
+  @keyframes tll-fade-up {
+    from { opacity:0; transform:translate3d(0,32px,0); }
+    to   { opacity:1; transform:translate3d(0,0,0); }
+  }
+  [data-reveal]{animation:tll-fade-up .9s cubic-bezier(.2,0,0,1) .1s;will-change:transform,opacity;}
+  [data-stagger-root] > *{animation:tll-fade-up .8s cubic-bezier(.2,0,0,1);}
+  [data-stagger-root] > *:nth-child(1){animation-delay:.05s;}
+  [data-stagger-root] > *:nth-child(2){animation-delay:.15s;}
+  [data-stagger-root] > *:nth-child(3){animation-delay:.25s;}
+  [data-stagger-root] > *:nth-child(4){animation-delay:.35s;}
+  [data-stagger-root] > *:nth-child(5){animation-delay:.45s;}
+  [data-stagger-root] > *:nth-child(6){animation-delay:.55s;}
+  /* Kinetic triplet: vertical staircase reveal (faint → mid → full) */
+  @keyframes tll-ktx-1 { from{opacity:0;transform:translate3d(0,1em,0);} to{opacity:.18;transform:none;} }
+  @keyframes tll-ktx-2 { from{opacity:0;transform:translate3d(0,1em,0);} to{opacity:.45;transform:none;} }
+  @keyframes tll-ktx-3 { from{opacity:0;transform:translate3d(0,1em,0);} to{opacity:1;transform:none;} }
+  .ktx > span { display:block; animation-duration:1s; animation-timing-function:cubic-bezier(.2,0,0,1); animation-fill-mode:both; }
+  .ktx > span:nth-child(1) { animation-name:tll-ktx-1; animation-delay:.05s; }
+  .ktx > span:nth-child(2) { animation-name:tll-ktx-2; animation-delay:.22s; }
+  .ktx > span:nth-child(3) { animation-name:tll-ktx-3; animation-delay:.4s; }
+  /* Work card */
+  [data-work-card]{cursor:none;}
+  [data-work-card] [data-work-img]{transition:transform 1s cubic-bezier(.2,0,0,1),filter .6s cubic-bezier(.2,0,0,1);}
+  [data-work-card]:hover [data-work-img]{transform:scale(1.06);filter:brightness(.45);}
+  [data-work-card] [data-work-view]{opacity:0;transition:opacity .35s cubic-bezier(.2,0,0,1),transform .45s cubic-bezier(.2,0,0,1);}
+  [data-work-card]:hover [data-work-view]{opacity:1;transform:translate(-50%,-50%) scale(1);}
+  /* FAQ */
+  [data-faq]{cursor:none;}
+  [data-faq] summary{list-style:none;cursor:none;}
+  [data-faq] summary::-webkit-details-marker{display:none;}
+  [data-faq] [data-faq-icon]{transition:transform .3s cubic-bezier(.2,0,0,1);}
+  [data-faq][open] [data-faq-icon]{transform:rotate(45deg);}
+  [data-faq] [data-faq-body]{max-height:0;overflow:hidden;opacity:0;transition:max-height .5s cubic-bezier(.2,0,0,1),opacity .4s cubic-bezier(.2,0,0,1),padding .5s cubic-bezier(.2,0,0,1);}
+  [data-faq][open] [data-faq-body]{max-height:300px;opacity:.9;padding-top:18px;padding-bottom:8px;}
+  /* Services row image swap */
+  [data-svc]{cursor:none;}
+  [data-svc] [data-svc-img]{position:absolute;top:50%;right:56px;width:340px;height:220px;transform:translate(40px,-50%);opacity:0;pointer-events:none;transition:opacity .5s cubic-bezier(.2,0,0,1),transform .6s cubic-bezier(.2,0,0,1);border-radius:10px;overflow:hidden;}
+  [data-svc]:hover [data-svc-img]{opacity:1;transform:translate(0,-50%);}
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal],.ktx > span,[data-stagger] > *{opacity:1 !important;transform:none !important;}
+    body{cursor:auto;}
+  }
+</style>
+</helmet>
 
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-brand">throughlouislens</a>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="guides/">Guides</a></li>
-        <li><a href="templates/">Templates</a></li>
-      </ul>
+<!-- ====== CUSTOM CURSOR ====== -->
+<div data-cursor-ring style="position:fixed;top:0;left:0;width:36px;height:36px;border:1px solid #F5F0E8;border-radius:50%;pointer-events:none;z-index:99999;mix-blend-mode:difference;transform:translate3d(-50%,-50%,0);transition:width .3s cubic-bezier(.2,0,0,1),height .3s cubic-bezier(.2,0,0,1),background .3s cubic-bezier(.2,0,0,1),border-color .3s cubic-bezier(.2,0,0,1);will-change:transform;"></div>
+<div data-cursor-dot style="position:fixed;top:0;left:0;width:5px;height:5px;background:#F5F0E8;border-radius:50%;pointer-events:none;z-index:99999;mix-blend-mode:difference;transform:translate3d(-50%,-50%,0);will-change:transform;"></div>
+
+<!-- ====== FIXED NAV (mix-blend difference) ====== -->
+<nav data-tll-nav style="position:sticky;top:0;z-index:50;transition:transform .45s cubic-bezier(.2,0,0,1);display:flex;justify-content:space-between;align-items:center;padding:16px clamp(20px,4vw,40px);max-width:1680px;margin:0 auto;background:#000000;border-bottom:1px solid rgba(245,240,232,0.08);font-family:'SF Mono',ui-monospace,Menlo,monospace;">
+  <div style="display:flex;align-items:center;gap:14px;pointer-events:auto;">
+    <div data-clock-wrap style="font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;"><span data-clock-label>Local </span><span data-clock style="margin-left:6px;">00:00:00</span></div>
+  </div>
+  <div data-nav-links style="display:flex;align-items:center;gap:32px;pointer-events:auto;">
+    <a href="#top" data-nav-link data-cursor-target style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;text-decoration:none;">Home</a>
+    <a href="guides.html" data-nav-link data-cursor-target style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;text-decoration:none;">Guides</a>
+    <a href="templates.html" data-nav-link data-cursor-target style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;text-decoration:none;">Templates</a>
+  </div>
+</nav>
+
+<!-- ====== MAX-WIDTH WRAPPER (caps at ~27" display content area) ====== -->
+<div data-tll-root style="max-width:1680px; margin:0 auto; background:#000; position:relative; overflow:hidden;">
+
+<!-- ====== HERO ====== -->
+<section id="top" style="position:relative;min-height:100vh;background:#000;color:#F5F0E8;padding:0 40px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;">
+  <div data-reveal data-hero-badge style="display:inline-flex;align-items:center;gap:12px;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;margin-bottom:64px;">
+    <span style="width:11px;height:11px;background:#1B4FD8;border-radius:50%;animation:tll-pulse 2.2s ease-in-out infinite;flex-shrink:0;"></span>
+    New guide drops weekly · subscribe below
+  </div>
+
+  <h1 data-reveal data-hero-h1 style="margin:0;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;font-weight:800;font-size:clamp(40px,9.2vw,160px);line-height:.95;letter-spacing:-.045em;text-transform:lowercase;text-align:center;white-space:nowrap;">throughlouislens<span style="color:#1B4FD8;">.</span></h1>
+
+  <div data-reveal data-hero-copy style="text-align:center;margin-top:64px;max-width:760px;">
+    <p style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:18px;line-height:1.7;letter-spacing:.02em;text-transform:uppercase;color:#A3A3A3;margin:0 0 32px;">Systems, prompts, apps and practical AI workflows I run every day, packaged so you can run them too.</p>
+    <div data-r="hero-ctas" style="display:inline-flex;gap:14px;">
+      <a href="#guides" data-cursor-target style="display:inline-block;padding:16px 28px;background:#F5F0E8;color:#000;border-radius:100px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;">Browse Guides →</a>
+      <a href="https://www.instagram.com/throughlouislens" target="_blank" rel="noopener" data-cursor-target style="display:inline-block;padding:16px 28px;background:transparent;color:#F5F0E8;border:1px solid #F5F0E8;border-radius:100px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;">Watch on IG</a>
     </div>
-  </nav>
+  </div>
 
-  <section class="hero">
-    <div class="hero-inner">
+  <div data-r="hero-bottom" style="position:absolute;left:40px;right:40px;bottom:36px;display:flex;justify-content:space-between;align-items:flex-end;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;">
+    <div>Based on a superyacht · Mediterranean</div>
+    <div style="text-align:right;">///Systems operator<br>+ AI-first creator studio</div>
+  </div>
+</section>
+
+<!-- ====== ZOOM IMAGE 1 (scroll-pinned parallax) ====== -->
+<section data-zoom style="position:relative;height:120vh;background:#000;overflow:hidden;">
+  <div data-zoom-inner style="position:sticky;top:0;width:100%;height:100vh;overflow:hidden;will-change:transform;">
+    <div data-zoom-img style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;transform:scale(1.4);will-change:transform;">
+      <div style="position:relative;background-image:url('uploads/A.png');background-size:cover;background-position:center;background-repeat:no-repeat;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 65%,rgba(0,0,0,.65) 100%);pointer-events:none;"></div>
+        <div style="position:absolute;left:24px;bottom:24px;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.85);">[Glacier Bay · Alaska]</div>
+      </div>
+      <div style="position:relative;background-image:url('uploads/B.png');background-size:cover;background-position:center;background-repeat:no-repeat;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 65%,rgba(0,0,0,.65) 100%);pointer-events:none;"></div>
+        <div style="position:absolute;left:24px;bottom:24px;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.85);">[Heli ops · Hawaii]</div>
+      </div>
+      <div style="position:relative;background-image:url('uploads/C.png');background-size:cover;background-position:center;background-repeat:no-repeat;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 65%,rgba(0,0,0,.65) 100%);pointer-events:none;"></div>
+        <div style="position:absolute;left:24px;bottom:24px;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.85);">[Glacier Bay · Alaska]​</div>
+      </div>
+    </div>
+    <div style="position:absolute;right:40px;bottom:40px;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.7);z-index:2;">
+      ///01—03
+    </div>
+  </div>
+</section>
+
+<!-- ====== KINETIC INTRO (scroll-driven staircase reveal) ====== -->
+<section data-kx style="position:relative;background:#000;color:#F5F0E8;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;padding:80px 40px;">
+    <div style="width:100%;">
+      <div style="text-align:center;font-weight:700;font-size:clamp(56px,9vw,144px);line-height:.92;letter-spacing:-.03em;text-transform:lowercase;">
+        <span data-kx-span="0" style="display:block;opacity:0;transform:translateY(24px);will-change:opacity,transform;">create with</span>
+        <span data-kx-span="1" style="display:block;opacity:0;transform:translateY(24px);will-change:opacity,transform;">create with</span>
+        <span data-kx-span="2" style="display:block;opacity:0;transform:translateY(24px);will-change:opacity,transform;">create with</span>
+      </div>
+      <div style="text-align:center;font-weight:700;font-size:clamp(56px,9vw,144px);line-height:.92;letter-spacing:-.03em;text-transform:lowercase;margin-top:24px;font-style:italic;">
+        <span data-kx-span="3" style="display:block;opacity:0;transform:translateY(24px);will-change:opacity,transform;color:#1B4FD8;">intention<span style="color:#F5F0E8;">.</span></span>
+        <span data-kx-span="4" style="display:block;opacity:0;transform:translateY(24px);will-change:opacity,transform;color:#1B4FD8;">intention<span style="color:#F5F0E8;">.</span></span>
+        <span data-kx-span="5" style="display:block;opacity:0;transform:translateY(24px);will-change:opacity,transform;color:#1B4FD8;">intention<span style="color:#F5F0E8;">.</span></span>
+      </div>
+    </div>
+</section>
+
+<!-- ====== PULL QUOTE ====== -->
+<section id="about" style="background:#000;color:#F5F0E8;padding:40px 40px 60px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;">
+  <div data-reveal style="margin:0 auto;max-width:920px;text-align:center;">
+    <p style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:18px;line-height:1.85;letter-spacing:.02em;text-transform:uppercase;color:#F5F0E8;margin:0;">"The people who learn to <span style="color:#1B4FD8;">build their workflow systems now</span> are going to look back at this as the moment the gap quietly opened up."</p>
+  </div>
+  <div data-reveal style="margin:120px auto 0;max-width:1040px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;">
+    <div style="width:100%;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:#0A0A0A url('uploads/Profile.png') center/cover no-repeat;"></div>
+    <div style="display:flex;flex-direction:column;gap:56px;">
       <div>
-        <p class="hero-eyebrow">@throughlouislens</p>
-        <h1 class="hero-title">Create<br>With<br><em>Intention.</em></h1>
-        <p class="hero-sub">Systems, prompts, apps and practical AI workflows I run every day, packaged so you can run them too.</p>
-        <div class="hero-ctas">
-          <a href="guides/" class="btn-primary" onclick="gtag('event','click',{event_category:'CTA',event_label:'hero_browse_guides'})">Browse Guides →</a>
-          <a href="https://www.instagram.com/throughlouislens" class="btn-secondary" target="_blank" rel="noopener" onclick="gtag('event','click',{event_category:'CTA',event_label:'hero_watch_instagram'})">Watch on Instagram</a>
-        </div>
+        <div style="font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:#F5F0E8;margin-bottom:18px;">About</div>
+        <p style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:16px;line-height:1.85;letter-spacing:.02em;text-transform:uppercase;color:#A3A3A3;margin:0;">Hi, I'm Louis. I work onboard superyachts. The rest of my time goes into building things, obsessed with understanding the AI landscape and turning it into real workflows for everyday life.</p>
       </div>
-      <div class="hero-visual">
-        <div class="hero-img-box">
-          <img src="assets/portrait_louis.jpeg" alt="Louis Le Grange">
-        </div>
+      <div>
+        <div style="font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:#F5F0E8;margin-bottom:18px;">What you'll see</div>
+        <p style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:16px;line-height:1.85;letter-spacing:.02em;text-transform:uppercase;color:#A3A3A3;margin:0;">How I build with AI, shoot and edit content on the water, and the tools and workflows that make all of it possible. If you're here, you probably build things too, or you want to.</p>
       </div>
     </div>
-  </section>
-
-  <div class="quote-strip">
-    <p class="quote-text">"The people who learn to <strong>build their workflow systems now</strong> are going to look back at this as the moment the gap quietly opened up."</p>
   </div>
+</section>
 
-  <section class="bio-section">
-    <div class="bio-inner">
-      <span class="bio-eyebrow">About</span>
-      <h2 class="bio-title">Hi, I'm Louis.</h2>
-      <div class="bio-card">
-        <p>I work onboard Superyachts. The rest of my time goes into building things.</p>
-        <p>I'm obsessed with understanding the AI landscape and turning it into real workflows for everyday life. </p>
-        <p>You'll see how I build with AI, shoot and edit content on the water, the tools and workflows that make all of it possible.</p>
-        <p>If you're here, you probably build things too. Or you want to. Either way, you're in the right place.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-inner">
-      <span class="section-eyebrow">What's Here</span>
-      <h2 class="section-title">Everything I share,<br>as my daily <span style="font-family: 'New York', ui-serif, Georgia, serif; font-style: italic;">Driver</span>.</h2>
-      <p class="section-sub">AI workflows, daily systems, app builds, and the production techniques that bring them to life. All field-tested while working on the water.</p>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-head">
-            <div class="feature-dot"></div>
-            <h3 class="feature-title">Guides</h3>
-          </div>
-          <p class="feature-desc">Claude workflows first. Daily systems, prompts, and building iOS apps without a CS degree. The shooting and editing show up as outputs of that thinking.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-head">
-            <div class="feature-dot"></div>
-            <h3 class="feature-title">Templates</h3>
-          </div>
-          <p class="feature-desc">Notion and ClickUp systems I run my own work from. AI-assisted planning, daily workflows, content pipelines. Plug in, customise, ship.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="guides-wrap">
-    <div class="guides-inner">
-      <div class="guides-header">
-        <div>
-          <span class="section-eyebrow">Popular Guides</span>
-          <h2 class="section-title" style="margin-bottom:0">Start Here</h2>
-        </div>
-        <a href="guides/" class="view-all">View All →</a>
-      </div>
-
-      <!-- Three-guide teaser — the full six live on the Guides page -->
-
-      <!-- Desktop card grid -->
-      <div class="card-grid" id="cardGrid">
-        <a href="ai-index.html" class="card" data-category="ai" onclick="gtag('event','click',{event_category:'Guide',event_label:'home_ai_definitions'})">
-          <span class="card-tag">AI</span>
-          <h3 class="card-title">AI Language Landscape</h3>
-          <p class="card-desc">Tokens, context windows, MCPs, skills, agents. The reference I wish I had when I started.</p>
-          <span class="card-link">Read Guide →</span>
-        </a>
-        <div class="card coming-soon" data-category="ai">
-          <span class="card-tag">AI</span>
-          <h3 class="card-title">The Big Three AI Ecosystems</h3>
-          <p class="card-desc">Claude, ChatGPT, and Gemini mapped side by side. Every product, every name, what each one is for.</p>
-          <span class="card-soon">Coming Soon</span>
-        </div>
-        <div class="card coming-soon" data-category="ai">
-          <span class="card-tag">Brand</span>
-          <h3 class="card-title">Brand Style Guide: How to Build One With AI</h3>
-          <p class="card-desc">Foundation, colour, typography, voice, and design rules. The exact prompt sequence to build a full brand system with Claude in one sitting.</p>
-          <span class="card-soon">Coming Soon</span>
-        </div>
-            </div>
-
-      <!-- Mobile row list -->
-      <div class="guide-list" id="guideList">
-        <a href="ai-index.html" class="guide-row" data-category="ai" onclick="gtag('event','click',{event_category:'Guide',event_label:'home_ai_definitions'})">
-          <div class="guide-row-body">
-            <span class="guide-row-tag">AI</span>
-            <div class="guide-row-title">AI Language Landscape</div>
-            <div class="guide-row-desc">Tokens, context windows, MCPs, skills, agents.</div>
-          </div>
-          <span class="guide-row-arrow">→</span>
-        </a>
-        <div class="guide-row coming-soon" data-category="ai">
-          <div class="guide-row-body">
-            <span class="guide-row-tag">AI</span>
-            <div class="guide-row-title">The Big Three AI Ecosystems</div>
-            <div class="guide-row-desc">Claude, ChatGPT, and Gemini mapped side by side. Every product, every name, what each one is for.</div>
-          </div>
-          <span class="guide-row-soon">Soon</span>
-        </div>
-        <div class="guide-row coming-soon" data-category="ai">
-          <div class="guide-row-body">
-            <span class="guide-row-tag">Brand</span>
-            <div class="guide-row-title">Brand Style Guide: How to Build One With AI</div>
-            <div class="guide-row-desc">Foundation, colour, typography, voice. The full prompt sequence to build a brand system with Claude.</div>
-          </div>
-          <span class="guide-row-soon">Soon</span>
-        </div>
-            </div>
-
+<!-- ====== WHAT'S HERE (Guides + Templates) ====== -->
+<section id="templates" style="background:#000;color:#F5F0E8;padding:160px 40px 120px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;">
+  <div data-reveal style="text-align:center;max-width:920px;margin:0 auto 110px;">
+    <div style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#1B4FD8;margin-bottom:24px;">///What's here</div>
+    <h3 style="margin:0 0 32px;font-weight:700;font-size:clamp(40px,5vw,70px);line-height:1;letter-spacing:-.02em;text-transform:uppercase;">Everything I share,<br>as my daily driver.</h3>
+    <p style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:18px;line-height:1.78;letter-spacing:.02em;text-transform:uppercase;color:#A3A3A3;margin:0;">AI workflows, daily systems, app builds, and the production techniques that bring them to life. All field-tested while working on the water.</p>
+  </div>
+  <!-- Row 1 -->
+  <div style="overflow:hidden;mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);">
+    <div style="display:flex;gap:18px;width:max-content;animation:tll-mq 55s linear infinite;padding-left:18px;">
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/apple/F5F0E8" width="18" height="18" alt="" style="display:block;">Apple</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/claude/F5F0E8" width="18" height="18" alt="" style="display:block;">Claude</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#F5F0E8" fill-rule="evenodd" style="display:block;flex-shrink:0;overflow:visible;"><path clip-rule="evenodd" d="M8.086.457a6.105 6.105 0 013.046-.415c1.333.153 2.521.72 3.564 1.7a.117.117 0 00.107.029c1.408-.346 2.762-.224 4.061.366l.063.03.154.076c1.357.703 2.33 1.77 2.918 3.198.278.679.418 1.388.421 2.126a5.655 5.655 0 01-.18 1.631.167.167 0 00.04.155 5.982 5.982 0 011.578 2.891c.385 1.901-.01 3.615-1.183 5.14l-.182.22a6.063 6.063 0 01-2.934 1.851.162.162 0 00-.108.102c-.255.736-.511 1.364-.987 1.992-1.199 1.582-2.962 2.462-4.948 2.451-1.583-.008-2.986-.587-4.21-1.736a.145.145 0 00-.14-.032c-.518.167-1.04.191-1.604.185a5.924 5.924 0 01-2.595-.622 6.058 6.058 0 01-2.146-1.781c-.203-.269-.404-.522-.551-.821a7.74 7.74 0 01-.495-1.283 6.11 6.11 0 01-.017-3.064.166.166 0 00.008-.074.115.115 0 00-.037-.064 5.958 5.958 0 01-1.38-2.202 5.196 5.196 0 01-.333-1.589 6.915 6.915 0 01.188-2.132c.45-1.484 1.309-2.648 2.577-3.493.282-.188.55-.334.802-.438.286-.12.573-.22.861-.304a.129.129 0 00.087-.087A6.016 6.016 0 015.635 2.31C6.315 1.464 7.132.846 8.086.457zm-.804 7.85a.848.848 0 00-1.473.842l1.694 2.965-1.688 2.848a.849.849 0 001.46.864l1.94-3.272a.849.849 0 00.007-.854l-1.94-3.393zm5.446 6.24a.849.849 0 000 1.695h4.848a.849.849 0 000-1.696h-4.848z"></path></svg>Codex</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/googlegemini/F5F0E8" width="18" height="18" alt="" style="display:block;">Gemini</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/sony/F5F0E8" width="18" height="18" alt="" style="display:block;">Sony</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/figma/F5F0E8" width="18" height="18" alt="" style="display:block;">Figma</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/dji/F5F0E8" width="18" height="18" alt="" style="display:block;">DJI</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/github/F5F0E8" width="18" height="18" alt="" style="display:block;">GitHub</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/swift/F5F0E8" width="18" height="18" alt="" style="display:block;">Swift</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/samsung/F5F0E8" width="18" height="18" alt="" style="display:block;">Samsung</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/supabase/F5F0E8" width="18" height="18" alt="" style="display:block;">Supabase</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/xcode/F5F0E8" width="18" height="18" alt="" style="display:block;">Xcode</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/notion/F5F0E8" width="18" height="18" alt="" style="display:block;">Notion</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/react/F5F0E8" width="18" height="18" alt="" style="display:block;">React Native</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/apple/F5F0E8" width="18" height="18" alt="" style="display:block;">Apple</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/claude/F5F0E8" width="18" height="18" alt="" style="display:block;">Claude</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#F5F0E8" fill-rule="evenodd" style="display:block;flex-shrink:0;overflow:visible;"><path clip-rule="evenodd" d="M8.086.457a6.105 6.105 0 013.046-.415c1.333.153 2.521.72 3.564 1.7a.117.117 0 00.107.029c1.408-.346 2.762-.224 4.061.366l.063.03.154.076c1.357.703 2.33 1.77 2.918 3.198.278.679.418 1.388.421 2.126a5.655 5.655 0 01-.18 1.631.167.167 0 00.04.155 5.982 5.982 0 011.578 2.891c.385 1.901-.01 3.615-1.183 5.14l-.182.22a6.063 6.063 0 01-2.934 1.851.162.162 0 00-.108.102c-.255.736-.511 1.364-.987 1.992-1.199 1.582-2.962 2.462-4.948 2.451-1.583-.008-2.986-.587-4.21-1.736a.145.145 0 00-.14-.032c-.518.167-1.04.191-1.604.185a5.924 5.924 0 01-2.595-.622 6.058 6.058 0 01-2.146-1.781c-.203-.269-.404-.522-.551-.821a7.74 7.74 0 01-.495-1.283 6.11 6.11 0 01-.017-3.064.166.166 0 00.008-.074.115.115 0 00-.037-.064 5.958 5.958 0 01-1.38-2.202 5.196 5.196 0 01-.333-1.589 6.915 6.915 0 01.188-2.132c.45-1.484 1.309-2.648 2.577-3.493.282-.188.55-.334.802-.438.286-.12.573-.22.861-.304a.129.129 0 00.087-.087A6.016 6.016 0 015.635 2.31C6.315 1.464 7.132.846 8.086.457zm-.804 7.85a.848.848 0 00-1.473.842l1.694 2.965-1.688 2.848a.849.849 0 001.46.864l1.94-3.272a.849.849 0 00.007-.854l-1.94-3.393zm5.446 6.24a.849.849 0 000 1.695h4.848a.849.849 0 000-1.696h-4.848z"></path></svg>Codex</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/googlegemini/F5F0E8" width="18" height="18" alt="" style="display:block;">Gemini</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/sony/F5F0E8" width="18" height="18" alt="" style="display:block;">Sony</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/figma/F5F0E8" width="18" height="18" alt="" style="display:block;">Figma</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/dji/F5F0E8" width="18" height="18" alt="" style="display:block;">DJI</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/github/F5F0E8" width="18" height="18" alt="" style="display:block;">GitHub</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/swift/F5F0E8" width="18" height="18" alt="" style="display:block;">Swift</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/samsung/F5F0E8" width="18" height="18" alt="" style="display:block;">Samsung</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/supabase/F5F0E8" width="18" height="18" alt="" style="display:block;">Supabase</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/xcode/F5F0E8" width="18" height="18" alt="" style="display:block;">Xcode</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/notion/F5F0E8" width="18" height="18" alt="" style="display:block;">Notion</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/react/F5F0E8" width="18" height="18" alt="" style="display:block;">React Native</div>
     </div>
   </div>
 
-  <section class="social-section">
-    <div class="social-inner">
-      <h2 class="social-title">See what I'm working on this <span style="font-family: 'New York', ui-serif, Georgia, serif; font-style: italic; font-weight: 500;">week.</span></h2>
-      <p class="social-sub">AI workflows, daily systems, and the production tips that come out of them. Posted weekly.</p>
-      <div class="social-btns">
-        <a href="https://www.instagram.com/throughlouislens" class="btn-ig" target="_blank" rel="noopener" onclick="gtag('event','click',{event_category:'CTA',event_label:'social_instagram'})">Follow on Instagram →</a>
-      </div>
+  <!-- Row 2 -->
+  <div style="overflow:hidden;margin-top:18px;mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);">
+    <div style="display:flex;gap:18px;width:max-content;animation:tll-mq-r 65s linear infinite;padding-left:18px;">
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/google/F5F0E8" width="18" height="18" alt="" style="display:block;">Google</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/elevenlabs/F5F0E8" width="18" height="18" alt="" style="display:block;">ElevenLabs</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/shopify/F5F0E8" width="18" height="18" alt="" style="display:block;">Shopify</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://api.iconify.design/simple-icons/adobe.svg?color=%23F5F0E8" width="18" height="18" alt="" style="display:block;">Adobe</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://api.iconify.design/simple-icons/canva.svg?color=%23F5F0E8" width="18" height="18" alt="" style="display:block;">Canva</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/framer/F5F0E8" width="18" height="18" alt="" style="display:block;">Framer</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/clickup/F5F0E8" width="18" height="18" alt="" style="display:block;">ClickUp</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/obsidian/F5F0E8" width="18" height="18" alt="" style="display:block;">Obsidian</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/stripe/F5F0E8" width="18" height="18" alt="" style="display:block;">Stripe</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/google/F5F0E8" width="18" height="18" alt="" style="display:block;">Google</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/elevenlabs/F5F0E8" width="18" height="18" alt="" style="display:block;">ElevenLabs</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/shopify/F5F0E8" width="18" height="18" alt="" style="display:block;">Shopify</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://api.iconify.design/simple-icons/adobe.svg?color=%23F5F0E8" width="18" height="18" alt="" style="display:block;">Adobe</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://api.iconify.design/simple-icons/canva.svg?color=%23F5F0E8" width="18" height="18" alt="" style="display:block;">Canva</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/framer/F5F0E8" width="18" height="18" alt="" style="display:block;">Framer</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/clickup/F5F0E8" width="18" height="18" alt="" style="display:block;">ClickUp</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/obsidian/F5F0E8" width="18" height="18" alt="" style="display:block;">Obsidian</div>
+      <div data-gear style="display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border:1px solid #262626;border-radius:100px;background:#0A0A0A;font-weight:500;font-size:16px;letter-spacing:.01em;color:#F5F0E8;white-space:nowrap;"><img src="https://cdn.simpleicons.org/stripe/F5F0E8" width="18" height="18" alt="" style="display:block;">Stripe</div>
     </div>
-  </section>
+  </div>
 
-  <footer class="footer">
-    <p class="footer-text">© 2026 throughlouislens · All rights reserved.</p>
-  </footer>
+  <div data-stagger-root style="display:grid;grid-template-columns:1fr 1fr;gap:24px;padding-top:48px;">
+    <div style="padding:32px;border:1px solid #262626;border-radius:12px;">
+      <div style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#1B4FD8;margin-bottom:24px;">//Guides</div>
+      <div style="font-weight:700;font-size:44px;line-height:1;letter-spacing:-.015em;text-transform:uppercase;margin-bottom:24px;">Read &amp; ship.</div>
+      <p style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:15px;line-height:1.8;letter-spacing:.02em;text-transform:uppercase;color:#A3A3A3;margin:0 0 28px;">Daily systems, prompts, and building iOS apps without a CS degree. The shooting and editing show up as outputs of that thinking.</p>
+      <a href="guides.html" data-cursor-target style="display:inline-block;padding:14px 24px;background:transparent;color:#F5F0E8;border:1px solid #F5F0E8;border-radius:100px;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;">Browse Guides →</a>
+    </div>
+    <div style="padding:32px;border:1px solid #262626;border-radius:12px;">
+      <div style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#1B4FD8;margin-bottom:24px;">//Templates</div>
+      <div style="font-weight:700;font-size:44px;line-height:1;letter-spacing:-.015em;text-transform:uppercase;margin-bottom:24px;">Plug &amp; customise.</div>
+      <p style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:15px;line-height:1.8;letter-spacing:.02em;text-transform:uppercase;color:#A3A3A3;margin:0 0 28px;">Notion and ClickUp systems I run my own work from. AI-assisted planning, daily workflows, content pipelines. Plug in, customise, ship.</p>
+      <a href="templates.html" data-cursor-target style="display:inline-block;padding:14px 24px;background:transparent;color:#F5F0E8;border:1px solid #F5F0E8;border-radius:100px;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;">Browse Templates →</a>
+    </div>
+  </div>
+</section>
 
-  
 
+<!-- ====== FEATURED CASES → POPULAR GUIDES ====== -->
+<section id="guides" style="background:#000;color:#F5F0E8;padding:200px 40px 100px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;">
+  <div data-reveal style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:80px;">
+    <div>
+      <div style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#1B4FD8;margin-bottom:18px;">///Start here</div>
+      <p style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:18px;line-height:1.78;letter-spacing:.02em;text-transform:uppercase;color:#A3A3A3;margin:0 0 32px;max-width:440px;">Daily systems, prompts, and building iOS apps without a CS degree. Field-tested on the water.</p>
+      <a href="guides.html" data-cursor-target style="display:inline-block;padding:16px 28px;background:#F5F0E8;color:#000;border-radius:100px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;">View All →</a>
+    </div>
+    <h2 style="margin:0;font-weight:700;font-size:clamp(56px,8vw,112px);line-height:.9;letter-spacing:-.025em;text-transform:uppercase;text-align:right;">Popular<br>Guides<span style="color:#1B4FD8;">.</span></h2>
+  </div>
+
+  <div data-stagger-root style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;">
+    <a href="ai-language-landscape.html" data-work-card data-cursor-target style="position:relative;display:block;aspect-ratio:4/3;border-radius:10px;overflow:hidden;text-decoration:none;">
+      <div data-work-img style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.25) 40%,rgba(0,0,0,.78) 100%),url('uploads/3.png') center/cover no-repeat;"></div>
+      <div data-work-view style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);background:#F5F0E8;color:#000;padding:14px 26px;border-radius:100px;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;">Read</div>
+      <div style="position:absolute;left:28px;top:24px;">
+        <span style="display:inline-block;padding:6px 12px;background:rgba(245,240,232,.12);border:1px solid rgba(245,240,232,.25);border-radius:4px;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;">AI</span>
+      </div>
+      <div style="position:absolute;left:28px;bottom:24px;right:28px;">
+        <div style="font-weight:700;font-size:24px;line-height:1.1;letter-spacing:-.005em;text-transform:uppercase;color:#F5F0E8;">AI Language Landscape</div>
+        <div style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#A3A3A3;margin-top:8px;">///Live Now</div>
+      </div>
+    </a>
+    <a href="big-three-ecosystems.html" data-work-card data-cursor-target style="position:relative;display:block;aspect-ratio:4/3;border-radius:10px;overflow:hidden;text-decoration:none;">
+      <div data-work-img style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.25) 40%,rgba(0,0,0,.78) 100%),url('uploads/2.png') center/cover no-repeat;"></div>
+      <div data-work-view style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);background:#F5F0E8;color:#000;padding:14px 26px;border-radius:100px;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;">Read</div>
+      <div style="position:absolute;left:28px;top:24px;">
+        <span style="display:inline-block;padding:6px 12px;background:rgba(245,240,232,.12);border:1px solid rgba(245,240,232,.25);border-radius:4px;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;">AI</span>
+      </div>
+      <div style="position:absolute;left:28px;bottom:24px;right:28px;">
+        <div style="font-weight:700;font-size:24px;line-height:1.1;letter-spacing:-.005em;text-transform:uppercase;color:#F5F0E8;">The Big Three Ecosystems</div>
+        <div style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#1B4FD8;margin-top:8px;">///Live Now</div>
+      </div>
+    </a>
+    <a data-work-card style="position:relative;display:block;aspect-ratio:4/3;border-radius:10px;overflow:hidden;text-decoration:none;cursor:default;">
+      <div data-work-img style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.25) 40%,rgba(0,0,0,.78) 100%),url('uploads/1.png') center/cover no-repeat;"></div>
+      <div data-work-view style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.88);background:#F5F0E8;color:#000;padding:14px 26px;border-radius:100px;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;">Soon</div>
+      <div style="position:absolute;left:28px;top:24px;">
+        <span style="display:inline-block;padding:6px 12px;background:rgba(0,0,0,.25);border:1px solid rgba(245,240,232,.35);border-radius:4px;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;">Brand</span>
+      </div>
+      <div style="position:absolute;left:28px;bottom:24px;right:28px;">
+        <div style="font-weight:700;font-size:24px;line-height:1.1;letter-spacing:-.005em;text-transform:uppercase;color:#F5F0E8;">Brand Style Guide<br>with AI</div>
+        <div style="font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#F5F0E8;opacity:.85;margin-top:8px;">///Coming Soon</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer style="background:#000;color:#F5F0E8;padding:80px 40px 40px;border-top:1px solid #262626;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;">
+  <svg viewBox="0 0 1000 150" width="100%" preserveAspectRatio="xMidYMid meet" style="display:block;overflow:visible;" aria-label="throughlouislens">
+    <text x="500" y="115" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif" font-weight="800" font-size="130" letter-spacing="-5.85">
+      <tspan fill="#F5F0E8">throughlouislens</tspan><tspan fill="#1B4FD8">.</tspan>
+    </text>
+  </svg>
+  <div style="display:flex;justify-content:space-between;margin-top:40px;font-family:'SF Mono',ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#A3A3A3;">
+    <div>©2026 Louis Le Grange · throughlouislens</div>
+    <a href="#top" data-cursor-target style="color:#A3A3A3;text-decoration:none;">[Go back to top]</a>
+  </div>
+</footer>
+
+</div><!-- /max-width wrapper -->
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const root = this.dcRoot || document;
+
+    // Shared feel layer (cursor, clock, nav scroll, smooth-scroll)
+    if (window.TLL) window.TLL.init(root);
+
+    // ---- Defensive: hide any tool icon that fails to load ----
+    root.querySelectorAll('[data-gear] img').forEach(img => {
+      img.addEventListener('error', () => { img.style.display = 'none'; });
+      if (img.complete && img.naturalWidth === 0) img.style.display = 'none';
+    });
+
+    // ---- Reveal on scroll (IntersectionObserver) ----
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+    root.querySelectorAll('[data-reveal], [data-stagger-root], .ktx').forEach(el => {
+      if (el.matches('[data-stagger-root]')) el.setAttribute('data-stagger','');
+      io.observe(el);
+    });
+    // mirror is-in onto data-stagger
+    const io2 = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io2.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    root.querySelectorAll('[data-stagger]').forEach(el => io2.observe(el));
+
+    // ---- Scroll-pinned zoom images ----
+    const zooms = Array.from(root.querySelectorAll('[data-zoom]'));
+    const onScroll = () => {
+      zooms.forEach(z => {
+        const r = z.getBoundingClientRect();
+        const winH = window.innerHeight;
+        const total = r.height + winH;
+        const seen = Math.min(Math.max(winH - r.top, 0), total);
+        const t = Math.min(1, seen / total / 0.55); // reach full view by 55% of scroll
+        const scale = 1.4 - t * 0.4; // zoom OUT as user scrolls
+        const img = z.querySelector('[data-zoom-img]');
+        if (img) img.style.transform = `scale(${scale.toFixed(3)})`;
+      });
+    };
+    // ---- Kinetic scroll-driven staircase reveal ----
+    // Each of the 6 spans reveals in sequence (top→bottom) as the user
+    // scrolls through the pinned section. Final tones .18 / .45 / 1.
+    // Reveal is bound to the section's entry into the viewport.
+    // t=0 when section top is at viewport bottom; t=1 when section top hits viewport top.
+    // After t=1 it stays clamped at 1 → spans hold their final state as section scrolls past,
+    // and reverse cleanly when scrolling back up.
+    const KX_TARGETS = [0.18, 0.45, 1.0, 0.18, 0.45, 1.0];
+    const KX_STAGGER = 0.10;
+    const KX_DUR = 0.35;
+    const kxs = Array.from(root.querySelectorAll('[data-kx]'));
+    const onKxScroll = () => {
+      kxs.forEach(s => {
+        const r = s.getBoundingClientRect();
+        const winH = window.innerHeight;
+        const t = Math.min(Math.max((winH - r.top) / winH, 0), 1);
+        const spans = s.querySelectorAll('[data-kx-span]');
+        spans.forEach((el, i) => {
+          const start = i * KX_STAGGER;
+          const local = Math.min(Math.max((t - start) / KX_DUR, 0), 1);
+          const eased = local * local * (3 - 2 * local); // smoothstep
+          const target = KX_TARGETS[i] ?? 1;
+          el.style.opacity = (eased * target).toFixed(3);
+          el.style.transform = `translateY(${((1 - eased) * 24).toFixed(1)}px)`;
+        });
+      });
+    };
+    const combinedScroll = () => { onScroll(); onKxScroll(); };
+    combinedScroll();
+    window.addEventListener('scroll', combinedScroll, { passive: true });
+    this._onScroll = combinedScroll;
+
+    // ---- Text scramble (Encrypt) ----
+    const CHARS = '!<>-_\\/[]{}—=+*^?#________';
+    const scramble = (el) => {
+      const final = el.getAttribute('data-scramble-text') || el.textContent;
+      let frame = 0;
+      const dur = 28;
+      const queue = [];
+      for (let i = 0; i < final.length; i++) {
+        const from = el.textContent[i] || '';
+        const start = Math.floor(Math.random() * 12);
+        const end = start + Math.floor(Math.random() * 18);
+        queue.push({ from, to: final[i], start, end, char: '' });
+      }
+      const step = () => {
+        let out = '', done = 0;
+        for (let i = 0; i < queue.length; i++) {
+          const q = queue[i];
+          if (frame >= q.end) { done++; out += q.to; }
+          else if (frame >= q.start) {
+            if (!q.char || Math.random() < 0.28) q.char = CHARS[Math.floor(Math.random() * CHARS.length)];
+            out += q.char;
+          } else { out += q.from; }
+        }
+        el.textContent = out;
+        if (done < queue.length) { frame++; requestAnimationFrame(step); }
+      };
+      step();
+    };
+    root.querySelectorAll('[data-scramble]').forEach(el => {
+      if (el.hasAttribute('data-scramble-hover')) {
+        el.addEventListener('mouseenter', () => scramble(el));
+      } else {
+        // trigger once when it enters view
+        const obs = new IntersectionObserver((ents) => {
+          ents.forEach(e => { if (e.isIntersecting) { scramble(el); obs.disconnect(); } });
+        }, { threshold: 0.6 });
+        obs.observe(el);
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+  }
+
+  renderVals() { return {}; }
+}
+</script>
 </body>
 </html>
